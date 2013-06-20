@@ -209,6 +209,6 @@
     <TypeScriptSourceMap>false</TypeScriptSourceMap>
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\FantasyFootballStats\Microsoft.TypeScript.targets" />
+  <Import Project="$(SolutionDir)\Microsoft.TypeScript.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>
