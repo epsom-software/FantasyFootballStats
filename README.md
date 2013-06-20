@@ -21,3 +21,16 @@ Areas I'm looking into:
 - TypeScript
 - Unit tests for Node.js
 
+
+
+Install
+====================
+
+1.  Clone repository from Github
+1.  Install IISNode, following the instructions here: https://github.com/tjanczuk/iisnode
+1.  In IIS, create a .NET site named FantasyFootballStats, which listens to http on port 83, rooted at .\FantasyFootballStats\FantasyFootballStats
+1.  Install Node.js
+1.  Add the following to your PATH (but correct the paths to whereever you installed these):  
+C:\Users\username\AppData\Roaming\npm;C:\Program Files (x86)\nodejs\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\;C:\node_modules\.bin
+1.  npm install Mocha
+1.  npm install Chai
