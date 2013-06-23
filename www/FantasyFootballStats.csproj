@@ -134,6 +134,11 @@
     <Content Include="Node\Tests\server.tests.js">
       <DependentUpon>server.tests.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\Inputs.ts" />
+    <Content Include="Scripts\Definitions\jquery.d.ts" />
+    <Content Include="Scripts\Inputs.js">
+      <DependentUpon>Inputs.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\less-1.3.3.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
