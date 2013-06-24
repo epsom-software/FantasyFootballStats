@@ -190,8 +190,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>node "$(SolutionDir)/node_modules/less/bin/lessc"  "$(SolutionDir)/www/content/css/style.less"  "$(SolutionDir)/www/content/css/style.css"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
