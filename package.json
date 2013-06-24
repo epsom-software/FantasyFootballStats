@@ -4,7 +4,8 @@
   "description": "\"Query for custom statistics for fantasy football.\"",
   "main": "www\\Node\\server.js",
   "scripts": {
-    "test": "mocha www\\Node\\Tests\\server.tests.js"
+    "test": "mocha www\\Node\\Tests\\server.tests.js",
+    "postdeploy": "node ./node_modules/less/bin/lessc ./www/content/css/style.less ./www/content/css/style.css"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,7 @@
   "license": "BSD",
   "devDependencies": {
     "mocha": "0.3.x",
-    "chai": "1.7.0"
+    "chai": "1.7.0",
+    "less": "x"
   }
 }
