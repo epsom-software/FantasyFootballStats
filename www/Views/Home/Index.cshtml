@@ -20,14 +20,12 @@
             @foreach(string position in FantasyFootballStats.Models.GameValues.Positions) {
                 <label for="@position">@position</label><input type="radio" name="Position" id="@position" value="@position" />
             }
-            <label class="on">On</label>
         </fieldset>
         <fieldset class="Teams">
             <legend>Team:</legend>
             @foreach(string team in FantasyFootballStats.Models.GameValues.Teams) {
                 <label for="@team">@team</label><input type="checkbox" name="Team" id="@team" value="@team" />
             }
-            <label class="on">On</label>
         </fieldset>
     </section>
 </body>
