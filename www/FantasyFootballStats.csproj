@@ -191,8 +191,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)\content\test0.txt" "$(ProjectDir)\content\test1.txt"
-copy "$(ProjectDir)\content\test0.txt" "$(ProjectDir)\content\test$(ConfigurationName).txt"
+    <PostBuildEvent>echo "ConfigurationName is $(ConfigurationName)" &gt; "$(ProjectDir)\content\test0.txt" 
+copy "$(ProjectDir)\content\test0.txt" "$(ProjectDir)\content\test2.txt"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
