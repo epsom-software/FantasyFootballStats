@@ -1,10 +1,10 @@
 {
   "name": "FantasyFootballStats",
   "version": "0.0.0",
-  "description": "\"Query for custom statistics for fantasy football.\"",
-  "main": "www\\Node\\server.js",
+  "description": "Query for custom statistics for fantasy football.",
+  "main": "www/Node/server.js",
   "scripts": {
-    "test": "mocha www\\Node\\Tests\\server.tests.js"
+    "test": "mocha www/Node/Tests/server.tests.js"
   },
   "repository": {
     "type": "git",

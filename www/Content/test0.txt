@@ -1,1 +1,0 @@
-﻿Testing to see if this file is copyied on build in Azure.
