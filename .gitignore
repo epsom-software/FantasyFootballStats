@@ -162,3 +162,4 @@ $RECYCLE.BIN/
 node_modules/*
 www/Node/Data/*
 packages/*
+Ignore/*
