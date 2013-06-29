@@ -160,6 +160,8 @@ $RECYCLE.BIN/
 *.js.map
 
 node_modules/*
+Data/*
 www/Node/Data/*
 packages/*
 Ignore/*
+

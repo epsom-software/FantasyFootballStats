@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FantasyFootballStats.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,13 +9,16 @@ namespace FantasyFootballStats.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
-
         public ActionResult Index()
         {
-            return View();
+            var model = new PlayerFilter();
+            return View(model);
         }
 
+        [HttpPost]
+        public ActionResult Index(PlayerFilter model)
+        {
+            return View(model);
+        }
     }
 }
