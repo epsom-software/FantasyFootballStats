@@ -15,6 +15,6 @@
   "devDependencies": {
     "mocha": "0.3.x",
     "chai": "1.7.0",
-    "less": "x"
+    "less": "*"
   }
 }

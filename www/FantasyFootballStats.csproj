@@ -121,7 +121,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="Content\test0.txt" />
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Node\server.ts" />
     <Content Include="Node\Definitions\all.d.ts" />
