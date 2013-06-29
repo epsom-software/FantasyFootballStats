@@ -121,6 +121,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\test0.txt" />
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Node\server.ts" />
     <Content Include="Node\Definitions\all.d.ts" />
@@ -190,7 +191,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>node "$(SolutionDir)/node_modules/less/bin/lessc"  "$(SolutionDir)/www/content/css/style.less"  "$(SolutionDir)/www/content/css/style.css"</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)\content\test0.txt" "$(ProjectDir)\content\test1.txt"
+copy "$(ProjectDir)\content\test0.txt" "$(ProjectDir)\content\test$(ConfigurationName).txt"
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
