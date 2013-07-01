@@ -131,10 +131,18 @@
     <Content Include="Node\Definitions\chai.d.ts" />
     <Content Include="Node\Definitions\mocha.d.ts" />
     <Content Include="Node\Definitions\node.d.ts" />
+    <TypeScriptCompile Include="Node\queryEngine.ts" />
+    <Content Include="Node\queryEngine.js">
+      <DependentUpon>queryEngine.ts</DependentUpon>
+    </Content>
     <Content Include="Node\server.js">
       <DependentUpon>server.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Node\Tests\server.tests.ts" />
+    <TypeScriptCompile Include="Node\Tests\queryEngine.tests.ts" />
+    <Content Include="Node\Tests\queryEngine.tests.js">
+      <DependentUpon>queryEngine.tests.ts</DependentUpon>
+    </Content>
     <Content Include="Node\Tests\server.tests.js">
       <DependentUpon>server.tests.ts</DependentUpon>
     </Content>
