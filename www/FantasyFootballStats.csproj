@@ -132,6 +132,10 @@
     <Content Include="Node\Definitions\mocha.d.ts" />
     <Content Include="Node\Definitions\node.d.ts" />
     <TypeScriptCompile Include="Node\queryEngine.ts" />
+    <TypeScriptCompile Include="Node\model.ts" />
+    <Content Include="Node\model.js">
+      <DependentUpon>model.ts</DependentUpon>
+    </Content>
     <Content Include="Node\queryEngine.js">
       <DependentUpon>queryEngine.ts</DependentUpon>
     </Content>
@@ -140,6 +144,10 @@
     </Content>
     <TypeScriptCompile Include="Node\Tests\server.tests.ts" />
     <TypeScriptCompile Include="Node\Tests\queryEngine.tests.ts" />
+    <TypeScriptCompile Include="Node\Tests\playerRepository.ts" />
+    <Content Include="Node\Tests\playerRepository.js">
+      <DependentUpon>playerRepository.ts</DependentUpon>
+    </Content>
     <Content Include="Node\Tests\queryEngine.tests.js">
       <DependentUpon>queryEngine.tests.ts</DependentUpon>
     </Content>

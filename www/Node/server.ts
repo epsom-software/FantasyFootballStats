@@ -2,12 +2,15 @@
 
 //This is a very simple http server.
 
-var http = require('http');
-var port = process.env.PORT || 1337;
+module server {
 
-http.createServer(function (req, res) {
+    var http = require('http');
+    var port = process.env.PORT || 1337;
 
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello World from Node.js and TypeScript\n');
+    http.createServer(function (req, res) {
 
-}).listen(port);
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end('Hello World from Node.js and TypeScript\n');
+
+    }).listen(port);
+}

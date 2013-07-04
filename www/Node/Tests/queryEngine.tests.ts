@@ -1,18 +1,42 @@
 ///<reference path='..\Definitions\all.d.ts'/>
-///<reference path='..\queryEngine.ts'/>
+///<reference path='.\playerRepository.ts'/>
 
-var expect: (target: any) => chai.ExpectMatchers = require("chai").expect;
-var target: QueryEngine = require("../queryEngine.js");
-    
-describe("queryEngine tests", function () {
-    describe("select GoalsScored", function () {
-        it("the first player has scored 5", function () {
-            var query = "select GoalsScored";
-            var result = target.run(query);
-            expect(result).to.be.a("array");
-            expect(result.length).to.be.above(0);
-            expect(result[0].GoalsScored).to.equal(5);
+module queryEngineTests {
+
+    var expect: (target: any) => chai.ExpectMatchers = require("chai").expect;
+    var target: query.QueryEngine = require("../queryEngine.js");
+
+    var repo: playerRepository.repo = require("./playerRepository.js");
+    target.players = repo.players;
+
+    describe("queryEngine ", function () {
+        describe("select second_name", function () {
+
+            var query = "select second_name";
+            var result: model.player = target.run(query)[0];
+
+            it("returns Fabianski", function () {
+                expect(result.second_name).to.equal("Fabianski");
+            });
+            it("doesn't return first_name", function () {
+                expect(result.first_name).to.be.undefined;
+            });
+        });
+
+        describe("select first_name", function () {
+
+            var query = "select first_name";
+            var result: model.player[] = target.run(query);
+
+            result.forEach(r => {
+                it("returns first_name", function () {
+                    expect(r.first_name).to.exist;
+                    expect(r.first_name).to.have.length.greaterThan(0);
+                });
+                it("doesn't return second_name", function () {
+                    expect(r.second_name).to.be.undefined;
+                });
+            });
         });
     });
-});
-
+}
