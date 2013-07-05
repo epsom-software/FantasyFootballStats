@@ -4,11 +4,15 @@ var query;
     var QueryEngine = (function () {
         function QueryEngine() { }
         QueryEngine.prototype.parseQuery = function (query) {
+            query = query.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+            query = query.toLowerCase().replace(/\\s+/g, " ").trim();
             var mappings = [];
-            if(RegExp('^select ').test(query)) {
+            if(/^select /.test(query)) {
+                query = query.replace("select ", "");
+                var fields = query.split(" ");
                 mappings.push(function (player, result) {
-                    query.split(' ').forEach(function (field) {
-                        return result[field] = player[field];
+                    fields.forEach(function (field) {
+                        result[field] = player[field];
                     });
                 });
             }
