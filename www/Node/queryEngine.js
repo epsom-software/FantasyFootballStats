@@ -1,6 +1,12 @@
 ///<reference path='Definitions\all.d.ts'/>
 var query;
 (function (query) {
+    var Mapping = (function () {
+        function Mapping(map) {
+            this.map = map;
+        }
+        return Mapping;
+    })();    
     var QueryEngine = (function () {
         function QueryEngine() { }
         QueryEngine.prototype.parseQuery = function (query) {
@@ -10,11 +16,11 @@ var query;
             if(/^select /.test(query)) {
                 query = query.replace("select ", "");
                 var fields = query.split(" ");
-                mappings.push(function (player, result) {
+                mappings.push(new Mapping(function (player, result) {
                     fields.forEach(function (field) {
                         result[field] = player[field];
                     });
-                });
+                }));
             }
             return mappings;
         };
@@ -24,7 +30,7 @@ var query;
                 var result = {
                 };
                 mappings.forEach(function (m) {
-                    return m(p, result);
+                    return m.map(p, result);
                 });
                 return result;
             });
