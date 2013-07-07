@@ -48,7 +48,7 @@ module query {
             query = query.toLowerCase().replace(/\s+/g, " ").trim();
 
             var mappings: Mapping[] = [];
-            
+
             var subqueries = new Query(query);
 
             var definitions = this.define(subqueries.define);
@@ -91,7 +91,7 @@ module query {
 
                 var matches;
                 while (matches = /\(([^\)]+)\) as (\w+)/.exec(subquery)) {
-                    
+
                     var wholeMatch: string = matches[0].toString();
                     var expression: string = matches[1].toString();
                     var field: string = matches[2].toString();
@@ -105,21 +105,42 @@ module query {
         }
 
         private buildExpression(expression: string) {
-            
+            console.log();
+
             if (!/^[\w\s\+\']+$/.test(expression)) {
                 return function () {
                     return "Unsupported charactors in expression: " + expression;
                 }
             }
-            
-            function backReference(match) {
-                return "p." + match;
-            };
 
-            var expressionAppliedToP = expression.replace(/\b\w+\b/g, backReference);
-            
+            var args: string[] = expression.match(/[^\s']+|'.*?'/g);
+
+            function getValue(p: model.player, field: string) {
+                if (field[0] == "'") {
+                    return field.replace(/'/g, ""); 
+                }
+                if (p[field] || p[field] === false) {
+                    return p[field];
+                }
+            }
+
             return function (p: model.player) {
-                return eval(expressionAppliedToP);
+
+                var nextValue = args[0];
+
+                var result = getValue(p, nextValue);
+
+                for (var i = 1; i < args.length; i += 2) {
+
+                    var operator = args[i];
+                    nextValue = args[i + 1];
+                    
+                    if (operator == "+") {
+                        result += getValue(p, nextValue);
+                    }
+                }
+
+                return result;
             }
         }
     }

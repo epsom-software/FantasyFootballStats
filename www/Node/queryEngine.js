@@ -98,21 +98,40 @@ var query;
         };
 
         QueryEngine.prototype.buildExpression = function (expression) {
+            console.log();
+
             if (!/^[\w\s\+\']+$/.test(expression)) {
                 return function () {
                     return "Unsupported charactors in expression: " + expression;
                 };
             }
 
-            function backReference(match) {
-                return "p." + match;
-            }
-            ;
+            var args = expression.match(/[^\s']+|'.*?'/g);
 
-            var expressionAppliedToP = expression.replace(/\b\w+\b/g, backReference);
+            function getValue(p, field) {
+                if (field[0] == "'") {
+                    return field.replace(/'/g, "");
+                }
+                if (p[field] || p[field] === false) {
+                    return p[field];
+                }
+            }
 
             return function (p) {
-                return eval(expressionAppliedToP);
+                var nextValue = args[0];
+
+                var result = getValue(p, nextValue);
+
+                for (var i = 1; i < args.length; i += 2) {
+                    var operator = args[i];
+                    nextValue = args[i + 1];
+
+                    if (operator == "+") {
+                        result += getValue(p, nextValue);
+                    }
+                }
+
+                return result;
             };
         };
         return QueryEngine;
