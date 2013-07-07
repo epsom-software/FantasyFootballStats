@@ -1,8 +1,8 @@
-///<reference path='..\Definitions\all.d.ts'/>
-///<reference path='..\server.ts'/>
+///<reference path='..\allTypings.d.ts'/>
 var serverTests;
 (function (serverTests) {
     var expect = require("chai").expect;
+
     describe("some example tests", function () {
         describe("this one", function () {
             it("fails", function () {

@@ -34,7 +34,7 @@ module model {
         event_points: number;
         next_fixture: string;
         transfers_in_event: number;
-        selected_by: number;
+        selected_by: string;
         team_id: number;
         second_name: string;
         season_history: any;

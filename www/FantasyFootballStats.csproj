@@ -127,10 +127,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="Node\server.ts" />
-    <Content Include="Node\Definitions\all.d.ts" />
-    <Content Include="Node\Definitions\chai.d.ts" />
-    <Content Include="Node\Definitions\mocha.d.ts" />
-    <Content Include="Node\Definitions\node.d.ts" />
+    <Content Include="Node\allTypings.d.ts" />
     <TypeScriptCompile Include="Node\queryEngine.ts" />
     <TypeScriptCompile Include="Node\model.ts" />
     <Content Include="Node\model.js">
@@ -159,6 +156,11 @@
     <Content Include="Scripts\Inputs.js">
       <DependentUpon>Inputs.ts</DependentUpon>
     </Content>
+    <Content Include="Scripts\typings\chai\chai-assert.d.ts" />
+    <Content Include="Scripts\typings\chai\chai.d.ts" />
+    <Content Include="Scripts\typings\mocha\mocha.d.ts" />
+    <Content Include="Scripts\typings\node\node-0.8.8.d.ts" />
+    <Content Include="Scripts\typings\node\node.d.ts" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

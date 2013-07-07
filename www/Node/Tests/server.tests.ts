@@ -1,5 +1,4 @@
-///<reference path='..\Definitions\all.d.ts'/>
-///<reference path='..\server.ts'/>
+///<reference path='..\allTypings.d.ts'/>
 
 module serverTests {
     var expect: (target: any) => chai.ExpectMatchers = require("chai").expect;

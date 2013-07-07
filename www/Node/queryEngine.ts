@@ -1,4 +1,4 @@
-///<reference path='Definitions\all.d.ts'/>
+///<reference path='allTypings.d.ts'/>
 
 module query {
 

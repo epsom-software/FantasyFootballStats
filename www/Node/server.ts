@@ -1,4 +1,4 @@
-///<reference path='Definitions\node.d.ts' />
+///<reference path='allTypings.d.ts' />
 
 //This is a very simple http server.
 
@@ -13,4 +13,4 @@ module server {
         res.end('Hello World from Node.js and TypeScript\n');
 
     }).listen(port);
-}
+} 

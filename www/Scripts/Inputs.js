@@ -1,6 +1,7 @@
 ///<reference path='Definitions\jquery.d.ts'/>
 $(document).ready(function () {
     var $selectors = $("input[type=radio], input[type=checkbox]");
+
     //See if the radios and checkboxen are checked, and then toggle the cssClass accordingly.
     //Do this for all the inputs on the page, so that we can be sure they are all in sync.
     function syncLabelStyleToInputValue() {
@@ -10,8 +11,10 @@ $(document).ready(function () {
             $label.toggleClass("on", this.checked);
         });
     }
+
     $selectors.change(syncLabelStyleToInputValue);
     syncLabelStyleToInputValue();
+
     ///When a legend is clicked, turn on it's checkboxen, unless they were all already on.
     $("legend").click(function () {
         var $checkboxen = $(this).siblings("input[type=checkbox]");

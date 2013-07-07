@@ -1,5 +1,5 @@
-///<reference path='..\Definitions\all.d.ts'/>
-///<reference path='.\playerRepository.ts'/>
+///<reference path='..\allTypings.d.ts'/>
+///<reference path='playerRepository.ts'/>
 
 module queryEngineTests {
 
