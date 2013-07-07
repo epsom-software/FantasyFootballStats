@@ -2,10 +2,6 @@
 
 module QueryEngine {
 
-    class Mapping {
-        constructor(public map: { (player: model.player, result: any): void; }) { }
-    }
-
     class QueryModel {
 
         private matchSubquery(keyword: string, query: string): string {
@@ -45,7 +41,7 @@ module QueryEngine {
 
         public static players: model.player[];
 
-        private mappings: Mapping[] = [];
+        private selections: string[];
         private definitions: any = {};
 
         constructor(queryValue: string) {
@@ -59,25 +55,13 @@ module QueryEngine {
 
             return Runner.players.map(p => {
                 var result = {};
-                this.mappings.forEach(m => m.map(p, result));
+                this.selections.forEach(s => result[s] = this.evaluateField(p, s));
                 return result;
             });
         }
 
         private select(subquery: string) {
-
-            var fields = subquery.split(" ");
-
-            this.mappings.push(new Mapping((player, result) => {
-                fields.forEach(field => {
-
-                    if (player[field] != undefined) {
-                        result[field] = player[field];
-                    } else if (this.definitions[field] != undefined) {
-                        result[field] = this.definitions[field](player);
-                    }
-                });
-            }));
+            this.selections = subquery.split(" ");
         }
 
         private define(subquery: string): void {

@@ -1,13 +1,6 @@
 ///<reference path='allTypings.d.ts'/>
 var QueryEngine;
 (function (QueryEngine) {
-    var Mapping = (function () {
-        function Mapping(map) {
-            this.map = map;
-        }
-        return Mapping;
-    })();
-
     var QueryModel = (function () {
         function QueryModel(queryValue) {
             queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
@@ -40,7 +33,6 @@ var QueryEngine;
 
     var Runner = (function () {
         function Runner(queryValue) {
-            this.mappings = [];
             this.definitions = {};
             this.nextUniqueName = (function () {
                 var i = 0;
@@ -57,26 +49,15 @@ var QueryEngine;
             var _this = this;
             return Runner.players.map(function (p) {
                 var result = {};
-                _this.mappings.forEach(function (m) {
-                    return m.map(p, result);
+                _this.selections.forEach(function (s) {
+                    return result[s] = _this.evaluateField(p, s);
                 });
                 return result;
             });
         };
 
         Runner.prototype.select = function (subquery) {
-            var _this = this;
-            var fields = subquery.split(" ");
-
-            this.mappings.push(new Mapping(function (player, result) {
-                fields.forEach(function (field) {
-                    if (player[field] != undefined) {
-                        result[field] = player[field];
-                    } else if (_this.definitions[field] != undefined) {
-                        result[field] = _this.definitions[field](player);
-                    }
-                });
-            }));
+            this.selections = subquery.split(" ");
         };
 
         Runner.prototype.define = function (subquery) {
