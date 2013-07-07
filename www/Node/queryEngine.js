@@ -41,9 +41,16 @@ var QueryEngine;
     var Runner = (function () {
         function Runner(queryValue) {
             this.mappings = [];
+            this.definitions = {};
+            this.nextUniqueName = (function () {
+                var i = 0;
+                return function () {
+                    return "76ea17283fcf44ccabbc9a99ab96895c_" + (++i);
+                };
+            })();
             var subqueries = new QueryModel(queryValue);
 
-            this.definitions = Runner.define(subqueries.define);
+            this.define(subqueries.define);
             this.select(subqueries.select);
         }
         Runner.prototype.run = function () {
@@ -72,68 +79,77 @@ var QueryEngine;
             }));
         };
 
-        Runner.define = function (subquery) {
-            var result = {};
+        Runner.prototype.define = function (subquery) {
             if (subquery) {
                 var matches;
-                while (matches = /\(([^\)]+)\) as (\w+)/.exec(subquery)) {
+                while (matches = /\((.+?)\) as (\w+)/.exec(subquery)) {
                     var wholeMatch = matches[0].toString();
                     var expression = matches[1].toString();
                     var field = matches[2].toString();
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    result[field] = this.buildExpression(expression);
+                    this.buildExpression(field, expression);
                 }
             }
-            return result;
         };
 
-        Runner.buildExpression = function (expression) {
-            if (!/^[\w\s\-+*/']+$/.test(expression)) {
-                return function () {
-                    return "Unsupported charactors in expression: " + expression;
-                };
+        Runner.prototype.buildExpression = function (field, expression) {
+            var _this = this;
+            if (!/^[\w\s\-+*/'\(\)]+$/.test(expression)) {
+                throw ("Unsupported charactors in expression: " + expression);
+            }
+
+            while (expression.indexOf("(") != -1) {
+                var subExpression = expression.match(/\([^()]+\)/)[0];
+                var innerSubExpression = subExpression.replace(/[()]/g, "");
+                var uniqueName = this.nextUniqueName();
+
+                //Replace all:
+                expression = expression.split(subExpression).join(uniqueName);
+
+                this.buildExpression(uniqueName, innerSubExpression);
             }
 
             var args = expression.match(/[^\s']+|'.*?'/g);
 
-            function getValue(p, field) {
-                if (field[0] == "'") {
-                    return field.replace(/'/g, "");
-                }
-                if (p[field] || p[field] === false) {
-                    return p[field];
-                }
-            }
-
-            return function (p) {
-                var nextValue = args[0];
-
-                var result = getValue(p, nextValue);
+            this.definitions[field] = function (p) {
+                var result = _this.evaluateField(p, args[0]);
 
                 for (var i = 1; i < args.length; i += 2) {
                     var operator = args[i];
-                    nextValue = args[i + 1];
+                    var nextValue = _this.evaluateField(p, args[i + 1]);
 
                     switch (operator) {
                         case "+":
-                            result += getValue(p, nextValue);
+                            result += nextValue;
                             break;
                         case "-":
-                            result -= getValue(p, nextValue);
+                            result -= nextValue;
                             break;
                         case "*":
-                            result *= getValue(p, nextValue);
+                            result *= nextValue;
                             break;
                         case "/":
-                            result /= getValue(p, nextValue);
+                            result /= nextValue;
                             break;
                     }
                 }
 
                 return result;
             };
+        };
+
+        Runner.prototype.evaluateField = function (p, field) {
+            if (field[0] == "'") {
+                return field.replace(/'/g, "");
+            }
+            if (p[field] != undefined) {
+                return p[field];
+            }
+            if (this.definitions[field] != undefined) {
+                return this.definitions[field](p);
+            }
         };
         return Runner;
     })();

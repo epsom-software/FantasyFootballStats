@@ -30,7 +30,7 @@ module QueryEngine {
         }
 
         constructor(queryValue: string) {
-            
+
             queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
             queryValue = this.initaliseField("select", queryValue);
             this.select = this.select.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
@@ -44,14 +44,14 @@ module QueryEngine {
     export class Runner {
 
         public static players: model.player[];
-        
+
         private mappings: Mapping[] = [];
-        private definitions: any;
+        private definitions: any = {};
 
         constructor(queryValue: string) {
             var subqueries: QueryModel = new QueryModel(queryValue);
 
-            this.definitions = Runner.define(subqueries.define);
+            this.define(subqueries.define);
             this.select(subqueries.select);
         }
 
@@ -80,12 +80,12 @@ module QueryEngine {
             }));
         }
 
-        private static define(subquery: string): any {
-            var result = {};
+        private define(subquery: string): void {
+            
             if (subquery) {
 
                 var matches;
-                while (matches = /\(([^\)]+)\) as (\w+)/.exec(subquery)) {
+                while (matches = /\((.+?)\) as (\w+)/.exec(subquery)) {
 
                     var wholeMatch: string = matches[0].toString();
                     var expression: string = matches[1].toString();
@@ -93,62 +93,78 @@ module QueryEngine {
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    result[field] = this.buildExpression(expression);
+                    this.buildExpression(field, expression);
                 }
             }
-            return result;
         }
 
-        private static buildExpression(expression: string) {
+        private nextUniqueName = (function () {
+            var i = 0;
+            return function () {
+                return "76ea17283fcf44ccabbc9a99ab96895c_" + (++i);
+            }
+        })();
 
-            if (!/^[\w\s\-+*/']+$/.test(expression)) {
-                return function () {
-                    return "Unsupported charactors in expression: " + expression;
-                }
+        private buildExpression(field:string, expression: string): void {
+
+            if (!/^[\w\s\-+*/'\(\)]+$/.test(expression)) {
+                throw ("Unsupported charactors in expression: " + expression);
+            }
+
+            while (expression.indexOf("(") != -1) {
+                var subExpression = expression.match(/\([^()]+\)/)[0];
+                var innerSubExpression = subExpression.replace(/[()]/g, "");
+                var uniqueName = this.nextUniqueName();
+
+                //Replace all:
+                expression = expression.split(subExpression).join(uniqueName)
+
+                this.buildExpression(uniqueName, innerSubExpression);
             }
 
             var args: string[] = expression.match(/[^\s']+|'.*?'/g);
 
-            function getValue(p: model.player, field: string) {
-                if (field[0] == "'") {
-                    return field.replace(/'/g, ""); 
-                }
-                if (p[field] || p[field] === false) {
-                    return p[field];
-                }
-            }
+            this.definitions[field] = (p: model.player) => {
 
-            return function (p: model.player) {
-
-                var nextValue = args[0];
-
-                var result = getValue(p, nextValue);
-
+                var result = this.evaluateField(p, args[0]);
+                
                 for (var i = 1; i < args.length; i += 2) {
 
                     var operator = args[i];
-                    nextValue = args[i + 1];
-                    
+                    var nextValue = this.evaluateField(p, args[i + 1]);
+
                     switch (operator) {
                         case "+":
-                            result += getValue(p, nextValue);
+                            result += nextValue;
                             break;
                         case "-":
-                            result -= getValue(p, nextValue);
+                            result -= nextValue;
                             break;
                         case "*":
-                            result *= getValue(p, nextValue);
+                            result *= nextValue;
                             break;
                         case "/":
-                            result /= getValue(p, nextValue);
+                            result /= nextValue;
                             break;
                     }
                 }
 
                 return result;
+            };
+        }
+        
+        private evaluateField(p: model.player, field: string) {
+            if (field[0] == "'") {
+                return field.replace(/'/g, "");
+            }
+            if (p[field] != undefined) {
+                return p[field];
+            }
+            if (this.definitions[field] != undefined) {
+                return this.definitions[field](p);
             }
         }
     }
-    
+
     module.exports = QueryEngine;
 }
