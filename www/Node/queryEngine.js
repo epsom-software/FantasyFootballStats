@@ -34,6 +34,7 @@ var QueryEngine;
     var Runner = (function () {
         function Runner(queryValue) {
             this.definitions = {};
+            this.top = Number.MAX_VALUE;
             this.nextUniqueName = (function () {
                 var i = 0;
                 return function () {
@@ -47,7 +48,9 @@ var QueryEngine;
         }
         Runner.prototype.run = function () {
             var _this = this;
-            return Runner.players.map(function (p) {
+            return Runner.players.filter(function (p, index) {
+                return index < _this.top;
+            }).map(function (p) {
                 var result = {};
                 _this.selections.forEach(function (s) {
                     return result[s] = _this.evaluateField(p, s);
@@ -57,6 +60,12 @@ var QueryEngine;
         };
 
         Runner.prototype.select = function (subquery) {
+            var topQuery = /^top (\d+) /.exec(subquery);
+            if (topQuery) {
+                this.top = parseInt(topQuery[1], 10);
+                subquery = subquery.replace(topQuery[0], "");
+            }
+
             this.selections = subquery.split(" ");
         };
 

@@ -163,6 +163,15 @@ module queryEngineTests {
                     expect(result.result).to.equal(repoPlayer.transfers_out * 2);
                 });
             });
+
+
+            describe("select top 1 *", function () {
+                it("returns a single row", function () {
+                    var result = target("select top 1 *");
+                    expect(result).to.satisfy(r => r.length == 1);
+                });
+            });
         });
+
     });
 }

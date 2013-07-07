@@ -43,6 +43,7 @@ module QueryEngine {
 
         private selections: string[];
         private definitions: any = {};
+        private top: number = Number.MAX_VALUE;
 
         constructor(queryValue: string) {
             var subqueries: QueryModel = new QueryModel(queryValue);
@@ -53,14 +54,23 @@ module QueryEngine {
 
         public run(): any[] {
 
-            return Runner.players.map(p => {
-                var result = {};
-                this.selections.forEach(s => result[s] = this.evaluateField(p, s));
-                return result;
-            });
+            return Runner.players
+                .filter((p, index) => index < this.top)
+                .map(p => {
+                    var result = {};
+                    this.selections.forEach(s => result[s] = this.evaluateField(p, s));
+                    return result;
+                });
         }
 
         private select(subquery: string) {
+            var topQuery = /^top (\d+) /.exec(subquery);
+            if (topQuery) {
+                this.top = parseInt(topQuery[1], 10);
+                subquery = subquery.replace(topQuery[0], "");
+            }
+
+
             this.selections = subquery.split(" ");
         }
 
