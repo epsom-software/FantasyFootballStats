@@ -5,7 +5,7 @@ module queryEngineTests {
 
     var expect: (target: any) => chai.ExpectMatchers = require("chai").expect;
     var QueryEngine = require("../queryEngine.js");
-    
+
     function target(queryValue: string): any[] {
         var queryEngine: QueryEngine.Runner = new QueryEngine.Runner(queryValue);
         return queryEngine.run();
@@ -15,7 +15,7 @@ module queryEngineTests {
     QueryEngine.Runner.players = repo.players;
 
     describe("queryEngine ", function () {
-        
+
         describe("select second_name", function () {
 
             var result = target("select second_name")[0];
@@ -95,7 +95,7 @@ module queryEngineTests {
             var result = target("  \nselect \r\n  \t second_name  ")[0];
             expect(result.second_name).to.equal("Fabianski");
         });
-        
+
         describe("define", function () {
             it("lets you create your own field", function () {
                 var result = target("define (second_name) as surname\nselect surname")[0];
@@ -122,15 +122,43 @@ module queryEngineTests {
             });
 
             describe("simple operators", function () {
-                it("lets you add values", function () {
+
+                var repoPlayer: model.player = repo.players[0];
+
+                it("supports +", function () {
                     var result = target("define (first_name + second_name) as full_name\nselect full_name")[0];
                     expect(result.full_name).to.equal("LukaszFabianski");
                 });
-
+                it("supports -", function () {
+                    var result = target("define (transfers_out - transfers_in) as result\nselect result")[0];
+                    expect(result.result).to.equal(repoPlayer.transfers_out - repoPlayer.transfers_in);
+                });
+                it("supports *", function () {
+                    var result = target("define (transfers_out * transfers_in) as result\nselect result")[0];
+                    expect(result.result).to.equal(repoPlayer.transfers_out * repoPlayer.transfers_in);
+                });
+                it("supports /", function () {
+                    var result = target("define (transfers_out / transfers_in) as result\nselect result")[0];
+                    expect(result.result).to.equal(repoPlayer.transfers_out / repoPlayer.transfers_in);
+                });
                 it("lets you add values with string literals", function () {
                     var result = target("define (first_name + ' ' + second_name) as full_name\nselect full_name")[0];
                     expect(result.full_name).to.equal("Lukasz Fabianski");
                 });
+                it("supports multiple complex definitions", function () {
+                    var result = target("define (transfers_out * transfers_in) as times (transfers_out / transfers_in) as divide\nselect times divide")[0];
+                    expect(result.times).to.equal(repoPlayer.transfers_out * repoPlayer.transfers_in);
+                    expect(result.divide).to.equal(repoPlayer.transfers_out / repoPlayer.transfers_in);
+                });
+                it("supports adding multiple values", function () {
+                    var result = target("define (transfers_out + transfers_in + total_points) as result\nselect result")[0];
+                    expect(result.result).to.equal(repoPlayer.transfers_out + repoPlayer.transfers_in + repoPlayer.total_points);
+                });
+                it("supports brackets", function () {
+                    var result = target("define ((transfers_out + transfers_in) / (transfers_out + transfers_in)) as result\nselect result")[0];
+                    expect(result.result).to.equal(1);
+                });
+                
             });
         });
     });

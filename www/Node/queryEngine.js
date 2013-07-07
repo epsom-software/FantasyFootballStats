@@ -9,9 +9,11 @@ var QueryEngine;
     })();
 
     var QueryModel = (function () {
-        function QueryModel(query) {
-            query = this.initaliseField("select", query);
-            query = this.initaliseField("define", query);
+        function QueryModel(queryValue) {
+            queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
+            queryValue = this.initaliseField("select", queryValue);
+            this.select = this.select.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+            queryValue = this.initaliseField("define", queryValue);
         }
         QueryModel.prototype.matchSubquery = function (keyword, query) {
             var regex = new RegExp("\\b" + keyword + " .+$");
@@ -39,9 +41,6 @@ var QueryEngine;
     var Runner = (function () {
         function Runner(queryValue) {
             this.mappings = [];
-            queryValue = queryValue.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
-            queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
-
             var subqueries = new QueryModel(queryValue);
 
             this.definitions = Runner.define(subqueries.define);
@@ -91,7 +90,7 @@ var QueryEngine;
         };
 
         Runner.buildExpression = function (expression) {
-            if (!/^[\w\s\+\']+$/.test(expression)) {
+            if (!/^[\w\s\-+*/']+$/.test(expression)) {
                 return function () {
                     return "Unsupported charactors in expression: " + expression;
                 };
@@ -117,8 +116,19 @@ var QueryEngine;
                     var operator = args[i];
                     nextValue = args[i + 1];
 
-                    if (operator == "+") {
-                        result += getValue(p, nextValue);
+                    switch (operator) {
+                        case "+":
+                            result += getValue(p, nextValue);
+                            break;
+                        case "-":
+                            result -= getValue(p, nextValue);
+                            break;
+                        case "*":
+                            result *= getValue(p, nextValue);
+                            break;
+                        case "/":
+                            result /= getValue(p, nextValue);
+                            break;
                     }
                 }
 
