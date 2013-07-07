@@ -4,17 +4,21 @@
 module queryEngineTests {
 
     var expect: (target: any) => chai.ExpectMatchers = require("chai").expect;
-    var target: query.QueryEngine = require("../queryEngine.js");
+    var QueryEngine = require("../queryEngine.js");
+    
+    function target(queryValue: string): any[] {
+        var queryEngine: QueryEngine.Runner = new QueryEngine.Runner(queryValue);
+        return queryEngine.run();
+    }
 
     var repo: playerRepository.repo = require("./playerRepository.js");
-    target.players = repo.players;
+    QueryEngine.Runner.players = repo.players;
 
     describe("queryEngine ", function () {
         
         describe("select second_name", function () {
 
-            var query = "select second_name";
-            var result = target.run(query)[0];
+            var result = target("select second_name")[0];
 
             it("returns Fabianski", function () {
                 expect(result.second_name).to.equal("Fabianski");
@@ -26,8 +30,7 @@ module queryEngineTests {
 
         describe("select first_name", function () {
 
-            var query = "select first_name";
-            var result = target.run(query);
+            var result = target("select first_name");
 
             result.forEach(r => {
                 it("returns first_name", function () {
@@ -41,8 +44,7 @@ module queryEngineTests {
 
         describe("select *", function () {
 
-            var query = "select *";
-            var result = target.run(query)[0];
+            var result = target("select *")[0];
 
             it("returns all normal fields", function () {
                 expect(result.total_points).to.equal(13);
@@ -85,40 +87,34 @@ module queryEngineTests {
         });
 
         it("is case insensitive", function () {
-            var query = "sELecT SEcond_nAMe";
-            var result = target.run(query)[0];
+            var result = target("sELecT SEcond_nAMe")[0];
             expect(result.second_name).to.equal("Fabianski");
         });
 
         it("ignores extra whitespace", function () {
-            var query = "  \nselect \r\n  \t second_name  ";
-            var result = target.run(query)[0];
+            var result = target("  \nselect \r\n  \t second_name  ")[0];
             expect(result.second_name).to.equal("Fabianski");
         });
         
         describe("define", function () {
             it("lets you create your own field", function () {
-                var query = "define (second_name) as surname\nselect surname";
-                var result = target.run(query)[0];
+                var result = target("define (second_name) as surname\nselect surname")[0];
                 expect(result.surname).to.equal("Fabianski");
             });
             it("lets you create multiple fields", function () {
-                var query = "define (second_name) as surname (first_name) as nickname\nselect surname nickname";
-                var result = target.run(query)[0];
+                var result = target("define (second_name) as surname (first_name) as nickname\nselect surname nickname")[0];
                 expect(result.surname).to.equal("Fabianski");
                 expect(result.nickname).to.equal("Lukasz");
             });
             it("lets you combine standard fields with custom fields", function () {
-                var query = "define (second_name) as surname (first_name) as nickname\nselect first_name surname second_name nickname";
-                var result = target.run(query)[0];
+                var result = target("define (second_name) as surname (first_name) as nickname\nselect first_name surname second_name nickname")[0];
                 expect(result.second_name).to.equal("Fabianski");
                 expect(result.first_name).to.equal("Lukasz");
                 expect(result.surname).to.equal("Fabianski");
                 expect(result.nickname).to.equal("Lukasz");
             });
             it("lets you combine * with custom fields", function () {
-                var query = "define (second_name) as surname (first_name) as nickname\nselect surname * nickname";
-                var result = target.run(query)[0];
+                var result = target("define (second_name) as surname (first_name) as nickname\nselect surname * nickname")[0];
                 expect(result.surname).to.equal("Fabianski");
                 expect(result.nickname).to.equal("Lukasz");
                 expect(result.second_name).to.equal("Fabianski");
@@ -127,14 +123,12 @@ module queryEngineTests {
 
             describe("simple operators", function () {
                 it("lets you add values", function () {
-                    var query = "define (first_name + second_name) as full_name\nselect full_name";
-                    var result = target.run(query)[0];
+                    var result = target("define (first_name + second_name) as full_name\nselect full_name")[0];
                     expect(result.full_name).to.equal("LukaszFabianski");
                 });
 
                 it("lets you add values with string literals", function () {
-                    var query = "define (first_name + ' ' + second_name) as full_name\nselect full_name";
-                    var result = target.run(query)[0];
+                    var result = target("define (first_name + ' ' + second_name) as full_name\nselect full_name")[0];
                     expect(result.full_name).to.equal("Lukasz Fabianski");
                 });
             });

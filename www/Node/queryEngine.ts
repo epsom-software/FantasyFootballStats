@@ -1,12 +1,12 @@
 ///<reference path='allTypings.d.ts'/>
 
-module query {
+module QueryEngine {
 
     class Mapping {
         constructor(public map: { (player: model.player, result: any): void; }) { }
     }
 
-    class Query {
+    class QueryModel {
 
         private matchSubquery(keyword: string, query: string): string {
             var regex = new RegExp("\\b" + keyword + " .+$");
@@ -38,54 +38,50 @@ module query {
         public select: string;
     }
 
-    export class QueryEngine {
+    export class Runner {
 
-        public players: model.player[];
+        public static players: model.player[];
+        
+        private mappings: Mapping[] = [];
+        private definitions: any;
 
-        private parseQuery(query: string): Mapping[] {
+        constructor(queryValue: string) {
 
-            query = query.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
-            query = query.toLowerCase().replace(/\s+/g, " ").trim();
+            queryValue = queryValue.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+            queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
+            
+            var subqueries: QueryModel = new QueryModel(queryValue);
 
-            var mappings: Mapping[] = [];
-
-            var subqueries = new Query(query);
-
-            var definitions = this.define(subqueries.define);
-
-            this.select(subqueries.select, mappings, definitions);
-
-            return mappings;
+            this.definitions = Runner.define(subqueries.define);
+            this.select(subqueries.select);
         }
 
-        public run(query: string): any[] {
+        public run(): any[] {
 
-            var mappings: Mapping[] = this.parseQuery(query);
-
-            return this.players.map(p => {
+            return Runner.players.map(p => {
                 var result = {};
-                mappings.forEach(m => m.map(p, result));
+                this.mappings.forEach(m => m.map(p, result));
                 return result;
             });
         }
 
-        private select(subquery: string, mappings: Mapping[], definitions: any) {
+        private select(subquery: string) {
 
             var fields = subquery.split(" ");
 
-            mappings.push(new Mapping((player, result) => {
+            this.mappings.push(new Mapping((player, result) => {
                 fields.forEach(field => {
 
                     if (player[field] != undefined) {
                         result[field] = player[field];
-                    } else if (definitions[field] != undefined) {
-                        result[field] = definitions[field](player);
+                    } else if (this.definitions[field] != undefined) {
+                        result[field] = this.definitions[field](player);
                     }
                 });
             }));
         }
 
-        private define(subquery: string): any {
+        private static define(subquery: string): any {
             var result = {};
             if (subquery) {
 
@@ -104,8 +100,7 @@ module query {
             return result;
         }
 
-        private buildExpression(expression: string) {
-            console.log();
+        private static buildExpression(expression: string) {
 
             if (!/^[\w\s\+\']+$/.test(expression)) {
                 return function () {
@@ -144,6 +139,6 @@ module query {
             }
         }
     }
-
-    module.exports = new QueryEngine();
+    
+    module.exports = QueryEngine;
 }
