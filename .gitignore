@@ -157,8 +157,10 @@ $RECYCLE.BIN/
 
 
 #TypeSrcipt generated files:
+
 *.js.map
 
+www/scripts/typings/*
 node_modules/*
 Data/*
 www/Node/Data/*
