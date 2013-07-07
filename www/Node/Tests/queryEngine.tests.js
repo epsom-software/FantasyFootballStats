@@ -120,6 +120,20 @@ var queryEngineTests;
                 expect(result.second_name).to.equal("Fabianski");
                 expect(result.first_name).to.equal("Lukasz");
             });
+
+            describe("simple operators", function () {
+                it("lets you add values", function () {
+                    var query = "define (first_name + second_name) as full_name\nselect full_name";
+                    var result = target.run(query)[0];
+                    expect(result.full_name).to.equal("LukaszFabianski");
+                });
+
+                it("lets you add values with string literals", function () {
+                    var query = "define (first_name + ' ' + second_name) as full_name\nselect full_name";
+                    var result = target.run(query)[0];
+                    expect(result.full_name).to.equal("Lukasz Fabianski");
+                });
+            });
         });
     });
 })(queryEngineTests || (queryEngineTests = {}));

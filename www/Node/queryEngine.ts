@@ -55,7 +55,6 @@ module query {
 
             this.select(subqueries.select, mappings, definitions);
 
-
             return mappings;
         }
 
@@ -91,7 +90,7 @@ module query {
             if (subquery) {
 
                 var matches;
-                while (matches = /\((\w+)\) as (\w+)/.exec(subquery)) {
+                while (matches = /\(([^\)]+)\) as (\w+)/.exec(subquery)) {
                     
                     var wholeMatch: string = matches[0].toString();
                     var expression: string = matches[1].toString();
@@ -99,14 +98,31 @@ module query {
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    result[field] = (function (expression: string) {
-                        return (player: model.player) => player[expression];
-                    })(expression);
+                    result[field] = this.buildExpression(expression);
                 }
             }
             return result;
         }
+
+        private buildExpression(expression: string) {
+            
+            if (!/^[\w\s\+\']+$/.test(expression)) {
+                return function () {
+                    return "Unsupported charactors in expression: " + expression;
+                }
+            }
+            
+            function backReference(match) {
+                return "p." + match;
+            };
+
+            var expressionAppliedToP = expression.replace(/\b\w+\b/g, backReference);
+            
+            return function (p: model.player) {
+                return eval(expressionAppliedToP);
+            }
+        }
     }
 
-    (module ).exports = new QueryEngine();
+    module.exports = new QueryEngine();
 }

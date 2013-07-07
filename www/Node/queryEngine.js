@@ -84,26 +84,41 @@ var query;
             var result = {};
             if (subquery) {
                 var matches;
-                while (matches = /\((\w+)\) as (\w+)/.exec(subquery)) {
+                while (matches = /\(([^\)]+)\) as (\w+)/.exec(subquery)) {
                     var wholeMatch = matches[0].toString();
                     var expression = matches[1].toString();
                     var field = matches[2].toString();
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    result[field] = (function (expression) {
-                        return function (player) {
-                            return player[expression];
-                        };
-                    })(expression);
+                    result[field] = this.buildExpression(expression);
                 }
             }
             return result;
+        };
+
+        QueryEngine.prototype.buildExpression = function (expression) {
+            if (!/^[\w\s\+\']+$/.test(expression)) {
+                return function () {
+                    return "Unsupported charactors in expression: " + expression;
+                };
+            }
+
+            function backReference(match) {
+                return "p." + match;
+            }
+            ;
+
+            var expressionAppliedToP = expression.replace(/\b\w+\b/g, backReference);
+
+            return function (p) {
+                return eval(expressionAppliedToP);
+            };
         };
         return QueryEngine;
     })();
     query.QueryEngine = QueryEngine;
 
-    (module).exports = new QueryEngine();
+    module.exports = new QueryEngine();
 })(query || (query = {}));
 //@ sourceMappingURL=queryEngine.js.map
