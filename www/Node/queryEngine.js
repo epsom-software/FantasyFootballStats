@@ -150,6 +150,7 @@ var QueryEngine;
             if (this.definitions[field] != undefined) {
                 return this.definitions[field](p);
             }
+            return (parseFloat(field));
         };
         return Runner;
     })();
