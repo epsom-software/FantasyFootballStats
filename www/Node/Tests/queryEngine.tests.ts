@@ -174,8 +174,12 @@ module queryEngineTests {
         });
 
         describe("where", function () {
-            it("should support =", function () {
+            it("should support = for strings", function () {
                 var result = target("select * where second_name = 'Fabianski'");
+                expect(result.length).to.equal(1);
+            });
+            it("should support = for numbers", function () {
+                var result = target("select * where code = 315730");
                 expect(result.length).to.equal(1);
             });
             it("should support brackets", function () {

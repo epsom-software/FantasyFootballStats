@@ -159,6 +159,11 @@ module QueryEngine {
             };
         }
         
+        private equal(left, right): boolean {
+            return (left + "").toLowerCase() == (right + "").toLowerCase();
+        }
+
+
         private applyOperators(p: model.player, args: string[]) {
             
             var result = this.evaluateField(p, args[0]);
@@ -182,7 +187,7 @@ module QueryEngine {
                         result /= nextValue;
                         break;
                     case "=":
-                        result = result.toLowerCase() == nextValue.toLowerCase();
+                        result = this.equal(result, nextValue);
                         break;
                 }
             }

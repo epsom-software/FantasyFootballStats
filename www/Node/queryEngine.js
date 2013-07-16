@@ -144,6 +144,10 @@ var QueryEngine;
             };
         };
 
+        Runner.prototype.equal = function (left, right) {
+            return (left + "").toLowerCase() == (right + "").toLowerCase();
+        };
+
         Runner.prototype.applyOperators = function (p, args) {
             var result = this.evaluateField(p, args[0]);
 
@@ -165,7 +169,7 @@ var QueryEngine;
                         result /= nextValue;
                         break;
                     case "=":
-                        result = result.toLowerCase() == nextValue.toLowerCase();
+                        result = this.equal(result, nextValue);
                         break;
                 }
             }
