@@ -156,13 +156,8 @@
     <Content Include="Scripts\Inputs.js">
       <DependentUpon>Inputs.ts</DependentUpon>
     </Content>
-
-<!--
-These files are braking the build on Azure, so I am temporarily removing to see what happens. 
     <Content Include="Scripts\typings\chai\chai-assert.d.ts" />
     <Content Include="Scripts\typings\chai\chai.d.ts" />
--->
-
     <Content Include="Scripts\typings\mocha\mocha.d.ts" />
     <Content Include="Scripts\typings\node\node-0.8.8.d.ts" />
     <Content Include="Scripts\typings\node\node.d.ts" />
