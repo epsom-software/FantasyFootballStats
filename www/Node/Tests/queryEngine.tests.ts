@@ -173,5 +173,15 @@ module queryEngineTests {
             });
         });
 
+        describe("where", function () {
+            it("should support =", function () {
+                var result = target("select * where second_name = 'Fabianski'");
+                expect(result.length).to.equal(1);
+            });
+            it("should support brackets", function () {
+                var result = target("select * where (second_name = 'Fabianski')");
+                expect(result.length).to.equal(1);
+            });
+        });
     });
 }

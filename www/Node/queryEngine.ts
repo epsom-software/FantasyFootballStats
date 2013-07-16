@@ -5,7 +5,7 @@ module QueryEngine {
     class QueryModel {
 
         private matchSubquery(keyword: string, query: string): string {
-            var regex = new RegExp("\\b" + keyword + " .+$");
+            var regex = new RegExp("\\b" + keyword + "\\b.+$");
             var matches = regex.exec(query);
             if (matches && matches.length > 0) {
                 return matches[0];
@@ -21,13 +21,14 @@ module QueryEngine {
                 this[keyword] = subquery.replace(keyword + " ", "");
                 return query.replace(subquery, "");
             } else {
-                return null;
+                return query;
             }
         }
 
         constructor(queryValue: string) {
 
             queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
+            queryValue = this.initaliseField("where", queryValue);
             queryValue = this.initaliseField("select", queryValue);
             this.select = this.select.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
             queryValue = this.initaliseField("define", queryValue);
@@ -35,6 +36,7 @@ module QueryEngine {
 
         public define: string;
         public select: string;
+        public where: string;
     }
 
     export class Runner {
@@ -42,7 +44,7 @@ module QueryEngine {
         public static players: model.player[];
 
         private selections: string[];
-        private definitions: any = {};
+        private definitions: any = { where: () => true };
         private top: number = Number.MAX_VALUE;
 
         constructor(queryValue: string) {
@@ -50,17 +52,19 @@ module QueryEngine {
 
             this.define(subqueries.define);
             this.select(subqueries.select);
+            this.where(subqueries.where);
         }
 
         public run(): any[] {
 
             return Runner.players
                 .filter((p, index) => index < this.top)
+                .filter((p) => this.evaluateField(p, "where"))
                 .map(p => {
                     var result = {};
                     this.selections.forEach(s => result[s] = this.evaluateField(p, s));
                     return result;
-                });
+                })
         }
 
         private select(subquery: string) {
@@ -75,7 +79,7 @@ module QueryEngine {
         }
 
         private define(subquery: string): void {
-            
+
             if (subquery) {
 
                 var matches;
@@ -89,6 +93,14 @@ module QueryEngine {
 
                     this.buildExpression(field, expression);
                 }
+            }
+        }
+
+        private where(subquery: string): void {
+            
+            if (subquery) {
+
+                this.buildClause("where", subquery);
             }
         }
 
@@ -119,34 +131,65 @@ module QueryEngine {
             var args: string[] = expression.match(/[^\s']+|'.*?'/g);
 
             this.definitions[field] = (p: model.player) => {
-
-                var result = this.evaluateField(p, args[0]);
-                
-                for (var i = 1; i < args.length; i += 2) {
-
-                    var operator = args[i];
-                    var nextValue = this.evaluateField(p, args[i + 1]);
-
-                    switch (operator) {
-                        case "+":
-                            result += nextValue;
-                            break;
-                        case "-":
-                            result -= nextValue;
-                            break;
-                        case "*":
-                            result *= nextValue;
-                            break;
-                        case "/":
-                            result /= nextValue;
-                            break;
-                    }
-                }
-
-                return result;
+                return this.applyOperators(p, args);
             };
         }
         
+        private buildClause(clauseId: string, expression: string): void {
+            
+            if (!/^[\w\s=\'\(\)]+$/.test(expression)) {
+                throw ("Unsupported charactors in expression: " + expression);
+            }
+
+            while (expression.indexOf("(") != -1) {
+                var subExpression = expression.match(/\([^()]+\)/)[0];
+                var innerSubExpression = subExpression.replace(/[()]/g, "");
+                var uniqueName = this.nextUniqueName();
+
+                //Replace all:
+                expression = expression.split(subExpression).join(uniqueName);
+
+                this.buildClause(uniqueName, innerSubExpression);
+            }
+
+            var args: string[] = expression.match(/[^\s']+|'.*?'/g);
+            
+            this.definitions[clauseId] = (p: model.player) => {
+                return this.applyOperators(p, args);
+            };
+        }
+        
+        private applyOperators(p: model.player, args: string[]) {
+            
+            var result = this.evaluateField(p, args[0]);
+
+            for (var i = 1; i < args.length; i += 2) {
+
+                var operator = args[i];
+                var nextValue = this.evaluateField(p, args[i + 1]);
+
+                switch (operator) {
+                    case "+":
+                        result += nextValue;
+                        break;
+                    case "-":
+                        result -= nextValue;
+                        break;
+                    case "*":
+                        result *= nextValue;
+                        break;
+                    case "/":
+                        result /= nextValue;
+                        break;
+                    case "=":
+                        result = result.toLowerCase() == nextValue.toLowerCase();
+                        break;
+                }
+            }
+
+            return result;
+        }
+
         private evaluateField(p: model.player, field: string) {
             if (field[0] == "'") {
                 return field.replace(/'/g, "");
