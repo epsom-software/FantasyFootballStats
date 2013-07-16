@@ -160,7 +160,6 @@ $RECYCLE.BIN/
 
 *.js.map
 
-www/scripts/typings/*
 node_modules/*
 Data/*
 www/Node/Data/*
