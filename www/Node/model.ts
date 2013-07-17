@@ -39,5 +39,9 @@ module model {
         second_name: string;
         season_history: any;
         fixture_history: any;
+
+        public toString(): string {
+            return this.second_name;
+        }
     }
 }

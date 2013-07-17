@@ -99,7 +99,6 @@ module QueryEngine {
         private where(subquery: string): void {
             
             if (subquery) {
-
                 this.buildClause("where", subquery);
             }
         }
@@ -118,8 +117,9 @@ module QueryEngine {
             }
 
             while (expression.indexOf("(") != -1) {
-                var subExpression = expression.match(/\([^()]+\)/)[0];
-                var innerSubExpression = subExpression.replace(/[()]/g, "");
+                var match = expression.match(/\(([^()]+)\)/);
+                var subExpression = match[0];
+                var innerSubExpression = match[1];
                 var uniqueName = this.nextUniqueName();
 
                 //Replace all:
@@ -137,13 +137,14 @@ module QueryEngine {
         
         private buildClause(clauseId: string, expression: string): void {
             
-            if (!/^[\w\s=\'\(\)]+$/.test(expression)) {
+            if (!/^[\w\s=\'\(\)+<>]+$/.test(expression)) {
                 throw ("Unsupported charactors in expression: " + expression);
             }
 
             while (expression.indexOf("(") != -1) {
-                var subExpression = expression.match(/\([^()]+\)/)[0];
-                var innerSubExpression = subExpression.replace(/[()]/g, "");
+                var match = expression.match(/\(([^()]+)\)/);
+                var subExpression = match[0];
+                var innerSubExpression = match[1];
                 var uniqueName = this.nextUniqueName();
 
                 //Replace all:
@@ -188,6 +189,9 @@ module QueryEngine {
                         break;
                     case "=":
                         result = this.equal(result, nextValue);
+                        break;
+                    case "<>":
+                        result = !this.equal(result, nextValue);
                         break;
                 }
             }

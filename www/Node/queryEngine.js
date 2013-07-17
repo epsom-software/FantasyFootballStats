@@ -103,8 +103,9 @@ var QueryEngine;
             }
 
             while (expression.indexOf("(") != -1) {
-                var subExpression = expression.match(/\([^()]+\)/)[0];
-                var innerSubExpression = subExpression.replace(/[()]/g, "");
+                var match = expression.match(/\(([^()]+)\)/);
+                var subExpression = match[0];
+                var innerSubExpression = match[1];
                 var uniqueName = this.nextUniqueName();
 
                 //Replace all:
@@ -122,13 +123,14 @@ var QueryEngine;
 
         Runner.prototype.buildClause = function (clauseId, expression) {
             var _this = this;
-            if (!/^[\w\s=\'\(\)]+$/.test(expression)) {
+            if (!/^[\w\s=\'\(\)+<>]+$/.test(expression)) {
                 throw ("Unsupported charactors in expression: " + expression);
             }
 
             while (expression.indexOf("(") != -1) {
-                var subExpression = expression.match(/\([^()]+\)/)[0];
-                var innerSubExpression = subExpression.replace(/[()]/g, "");
+                var match = expression.match(/\(([^()]+)\)/);
+                var subExpression = match[0];
+                var innerSubExpression = match[1];
                 var uniqueName = this.nextUniqueName();
 
                 //Replace all:
@@ -170,6 +172,9 @@ var QueryEngine;
                         break;
                     case "=":
                         result = this.equal(result, nextValue);
+                        break;
+                    case "<>":
+                        result = !this.equal(result, nextValue);
                         break;
                 }
             }

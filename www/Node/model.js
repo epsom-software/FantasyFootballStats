@@ -3,6 +3,9 @@ var model;
     var player = (function () {
         function player() {
         }
+        player.prototype.toString = function () {
+            return this.second_name;
+        };
         return player;
     })();
     model.player = player;
