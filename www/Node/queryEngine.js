@@ -59,9 +59,7 @@ var QueryEngine;
         }
         Runner.prototype.run = function () {
             var _this = this;
-            var result = Runner.players.filter(function (p, index) {
-                return index < _this.top;
-            }).filter(function (p) {
+            var result = Runner.players.filter(function (p) {
                 return _this.evaluateField(p, "where");
             }).map(function (p) {
                 var result = {};
@@ -75,6 +73,7 @@ var QueryEngine;
                 result = result.sort(this.sortComparison);
             }
 
+            result = result.splice(0, this.top);
             return result;
         };
 

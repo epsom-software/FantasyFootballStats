@@ -67,7 +67,6 @@ module QueryEngine {
         public run(): any[] {
 
             var result = Runner.players
-                .filter((p, index) => index < this.top)
                 .filter((p) => this.evaluateField(p, "where"))
                 .map(p => {
                     var result = {};
@@ -79,6 +78,7 @@ module QueryEngine {
                 result = result.sort(this.sortComparison);
             }
 
+            result = result.splice(0, this.top);
             return result;
         }
 

@@ -239,6 +239,10 @@ module queryEngineTests {
                 expect(result[0].points_per_game).to.equal(5.2);
                 expect(result[1].points_per_game).to.equal(4.1);
             });
+            it("checks order when selecting top", function () {
+                var result = target("select top 1 * orderby points_per_game asc");
+                expect(result[0].points_per_game).to.equal(4.1);
+            });
         });
     });
 }
