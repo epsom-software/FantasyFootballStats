@@ -96,7 +96,7 @@ module QueryEngine {
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    this.buildExpression(field, expression);
+                    this.buildExpression(field, expression, /^[\w\s\-+*/'\(\)]+$/);
                 }
             }
         }
@@ -104,7 +104,7 @@ module QueryEngine {
         private where(subquery: string): void {
             
             if (subquery) {
-                this.buildClause("where", subquery);
+                this.buildExpression("where", subquery, /^[\w\s=\'\(\)+<>]+$/);
             }
         }
 
@@ -115,9 +115,9 @@ module QueryEngine {
             }
         })();
 
-        private buildExpression(field:string, expression: string): void {
+        private buildExpression(field:string, expression: string, supportedCharactors: RegExp): void {
 
-            if (!/^[\w\s\-+*/'\(\)]+$/.test(expression)) {
+            if (!supportedCharactors.test(expression)) {
                 error("Unsupported charactors in expression", expression);
             }
 
@@ -130,37 +130,12 @@ module QueryEngine {
                 //Replace all:
                 expression = expression.split(subExpression).join(uniqueName)
 
-                this.buildExpression(uniqueName, innerSubExpression);
+                this.buildExpression(uniqueName, innerSubExpression, supportedCharactors);
             }
 
             var args: string[] = expression.match(/[^\s']+|'.*?'/g);
 
             this.definitions[field] = (p: model.player) => {
-                return this.applyOperators(p, args);
-            };
-        }
-        
-        private buildClause(clauseId: string, expression: string): void {
-            
-            if (!/^[\w\s=\'\(\)+<>]+$/.test(expression)) {
-                error("Unsupported charactors in expression", expression);
-            }
-
-            while (expression.indexOf("(") != -1) {
-                var match = expression.match(/\(([^()]+)\)/);
-                var subExpression = match[0];
-                var innerSubExpression = match[1];
-                var uniqueName = this.nextUniqueName();
-
-                //Replace all:
-                expression = expression.split(subExpression).join(uniqueName);
-
-                this.buildClause(uniqueName, innerSubExpression);
-            }
-
-            var args: string[] = expression.match(/[^\s']+|'.*?'/g);
-            
-            this.definitions[clauseId] = (p: model.player) => {
                 return this.applyOperators(p, args);
             };
         }

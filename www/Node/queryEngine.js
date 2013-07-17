@@ -90,20 +90,20 @@ var QueryEngine;
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    this.buildExpression(field, expression);
+                    this.buildExpression(field, expression, /^[\w\s\-+*/'\(\)]+$/);
                 }
             }
         };
 
         Runner.prototype.where = function (subquery) {
             if (subquery) {
-                this.buildClause("where", subquery);
+                this.buildExpression("where", subquery, /^[\w\s=\'\(\)+<>]+$/);
             }
         };
 
-        Runner.prototype.buildExpression = function (field, expression) {
+        Runner.prototype.buildExpression = function (field, expression, supportedCharactors) {
             var _this = this;
-            if (!/^[\w\s\-+*/'\(\)]+$/.test(expression)) {
+            if (!supportedCharactors.test(expression)) {
                 error("Unsupported charactors in expression", expression);
             }
 
@@ -116,37 +116,12 @@ var QueryEngine;
                 //Replace all:
                 expression = expression.split(subExpression).join(uniqueName);
 
-                this.buildExpression(uniqueName, innerSubExpression);
+                this.buildExpression(uniqueName, innerSubExpression, supportedCharactors);
             }
 
             var args = expression.match(/[^\s']+|'.*?'/g);
 
             this.definitions[field] = function (p) {
-                return _this.applyOperators(p, args);
-            };
-        };
-
-        Runner.prototype.buildClause = function (clauseId, expression) {
-            var _this = this;
-            if (!/^[\w\s=\'\(\)+<>]+$/.test(expression)) {
-                error("Unsupported charactors in expression", expression);
-            }
-
-            while (expression.indexOf("(") != -1) {
-                var match = expression.match(/\(([^()]+)\)/);
-                var subExpression = match[0];
-                var innerSubExpression = match[1];
-                var uniqueName = this.nextUniqueName();
-
-                //Replace all:
-                expression = expression.split(subExpression).join(uniqueName);
-
-                this.buildClause(uniqueName, innerSubExpression);
-            }
-
-            var args = expression.match(/[^\s']+|'.*?'/g);
-
-            this.definitions[clauseId] = function (p) {
                 return _this.applyOperators(p, args);
             };
         };
