@@ -156,6 +156,10 @@
     <Content Include="Scripts\Inputs.js">
       <DependentUpon>Inputs.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\Postback.ts" />
+    <Content Include="Scripts\Postback.js">
+      <DependentUpon>Postback.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\typings\chai\chai-assert.d.ts" />
     <Content Include="Scripts\typings\chai\chai.d.ts" />
     <Content Include="Scripts\typings\mocha\mocha.d.ts" />

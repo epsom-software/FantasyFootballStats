@@ -1,7 +1,7 @@
 ﻿@model FantasyFootballStats.Models.PlayerFilter
 
 
-@using(Html.BeginForm()) {
+<form id="statsForm">
 
     <fieldset class="Positions">
         <legend>Position:</legend>
@@ -17,7 +17,15 @@
             <input type="checkbox" name="Team" id="@team" value="@team" checked="@Model.Team.Contains(team)" />
         }
     </fieldset>
-            
+
+    <fieldset>
+        <legend>Code:</legend>
+        <textarea id="code" rows="10" cols="120">@DateTime.Now</textarea>
+    </fieldset>
+    
+    <div id="result"></div>
+
     <input type="submit" />
-}
+
+</form>
 

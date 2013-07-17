@@ -163,6 +163,7 @@ $RECYCLE.BIN/
 node_modules/*
 Data/*
 www/Node/Data/*
+www/Node/iisnode/*
 packages/*
 Ignore/*
 
