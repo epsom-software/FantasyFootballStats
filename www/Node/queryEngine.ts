@@ -33,6 +33,7 @@ module QueryEngine {
         constructor(queryValue: string) {
 
             queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
+            queryValue = this.initaliseField("orderby", queryValue);
             queryValue = this.initaliseField("where", queryValue);
             queryValue = this.initaliseField("select", queryValue);
             this.select = this.select.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
@@ -42,6 +43,7 @@ module QueryEngine {
         public define: string;
         public select: string;
         public where: string;
+        public orderby: string;
     }
 
     export class Runner {
@@ -51,6 +53,7 @@ module QueryEngine {
         private selections: string[];
         private definitions: any = { where: () => true };
         private top: number = Number.MAX_VALUE;
+        private sortComparison: (a: model.player, b: model.player) => number;
 
         constructor(queryValue: string) {
             var subqueries: QueryModel = new QueryModel(queryValue);
@@ -58,18 +61,25 @@ module QueryEngine {
             this.define(subqueries.define);
             this.select(subqueries.select);
             this.where(subqueries.where);
+            this.orderby(subqueries.orderby);
         }
 
         public run(): any[] {
 
-            return Runner.players
+            var result = Runner.players
                 .filter((p, index) => index < this.top)
                 .filter((p) => this.evaluateField(p, "where"))
                 .map(p => {
                     var result = {};
                     this.selections.forEach(s => result[s] = this.evaluateField(p, s));
                     return result;
-                })
+                });
+
+            if (this.sortComparison) {
+                result = result.sort(this.sortComparison);
+            }
+
+            return result;
         }
 
         private select(subquery: string) {
@@ -216,6 +226,30 @@ module QueryEngine {
                 return this.definitions[field](p);
             }
             return (parseFloat(field));
+        }
+
+        private orderby(subquery: string): void {
+
+            if (subquery) {
+                var match = subquery.match(/(\w+)(\s+(asc|desc))?/);
+
+                var field: string = match[1];
+                var ascModifier: number = (match[3] == "asc") ? 1 : -1;
+                
+                this.sortComparison = (a: model.player, b: model.player) => {
+                    
+                    var aValue = this.evaluateField(a, field);
+                    var bValue = this.evaluateField(b, field);
+
+                    if (aValue > bValue) {
+                        return ascModifier;
+                    } else if (bValue > aValue) {
+                        return -ascModifier;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
         }
     }
 

@@ -9,6 +9,7 @@ var QueryEngine;
     var QueryModel = (function () {
         function QueryModel(queryValue) {
             queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
+            queryValue = this.initaliseField("orderby", queryValue);
             queryValue = this.initaliseField("where", queryValue);
             queryValue = this.initaliseField("select", queryValue);
             this.select = this.select.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
@@ -54,10 +55,11 @@ var QueryEngine;
             this.define(subqueries.define);
             this.select(subqueries.select);
             this.where(subqueries.where);
+            this.orderby(subqueries.orderby);
         }
         Runner.prototype.run = function () {
             var _this = this;
-            return Runner.players.filter(function (p, index) {
+            var result = Runner.players.filter(function (p, index) {
                 return index < _this.top;
             }).filter(function (p) {
                 return _this.evaluateField(p, "where");
@@ -68,6 +70,12 @@ var QueryEngine;
                 });
                 return result;
             });
+
+            if (this.sortComparison) {
+                result = result.sort(this.sortComparison);
+            }
+
+            return result;
         };
 
         Runner.prototype.select = function (subquery) {
@@ -199,6 +207,29 @@ var QueryEngine;
                 return this.definitions[field](p);
             }
             return (parseFloat(field));
+        };
+
+        Runner.prototype.orderby = function (subquery) {
+            var _this = this;
+            if (subquery) {
+                var match = subquery.match(/(\w+)(\s+(asc|desc))?/);
+
+                var field = match[1];
+                var ascModifier = (match[3] == "asc") ? 1 : -1;
+
+                this.sortComparison = function (a, b) {
+                    var aValue = _this.evaluateField(a, field);
+                    var bValue = _this.evaluateField(b, field);
+
+                    if (aValue > bValue) {
+                        return ascModifier;
+                    } else if (bValue > aValue) {
+                        return -ascModifier;
+                    } else {
+                        return 0;
+                    }
+                };
+            }
         };
         return Runner;
     })();

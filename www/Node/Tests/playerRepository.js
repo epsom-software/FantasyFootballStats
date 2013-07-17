@@ -32,7 +32,7 @@ var playerRepository;
             "form": 0.0,
             "current_fixture": "Newcastle (A)",
             "now_cost": 42,
-            "points_per_game": 3.2,
+            "points_per_game": 5.2,
             "transfers_in": 35365,
             "news": "",
             "original_cost": 45,

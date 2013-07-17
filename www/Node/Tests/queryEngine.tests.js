@@ -217,6 +217,24 @@ var queryEngineTests;
                 expect(result.length).to.equal(1);
             });
         });
+
+        describe("orderby", function () {
+            it("supports asc", function () {
+                var result = target("select * orderby points_per_game asc");
+                expect(result[0].points_per_game).to.equal(4.1);
+                expect(result[1].points_per_game).to.equal(5.2);
+            });
+            it("supports desc", function () {
+                var result = target("select * orderby points_per_game desc");
+                expect(result[0].points_per_game).to.equal(5.2);
+                expect(result[1].points_per_game).to.equal(4.1);
+            });
+            it("defaults to desc", function () {
+                var result = target("select * orderby points_per_game");
+                expect(result[0].points_per_game).to.equal(5.2);
+                expect(result[1].points_per_game).to.equal(4.1);
+            });
+        });
     });
 })(queryEngineTests || (queryEngineTests = {}));
 //@ sourceMappingURL=queryEngine.tests.js.map
