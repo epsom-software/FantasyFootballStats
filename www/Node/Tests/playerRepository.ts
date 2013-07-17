@@ -6,7 +6,7 @@ module playerRepository {
         return {
             "transfers_out": 25110, "code": 315730, "event_total": 0, "last_season_points": 0, "squad_number": null, "transfers_balance": -2, "news_updated": "2013-05-02T14:31:18 UTC+0000", "event_cost": 42, "news_added": "2013-04-15T15:31:19 UTC+0000", "web_name": "Fabianski", "in_dreamteam": false, "team_code": 315730, "id": 1, "first_name": "Lukasz", "transfers_out_event": 39, "element_type_id": 1, "max_cost": 45, "event_explain": [<any>[<any>"Minutes played", 0, 0]], "selected": 23050, "min_cost": 42, "fixtures": { "all": [], "summary": [] },
 
-            "total_points": 13, "type_name": "Goalkeeper", "team_name": "Arsenal", "status": "a", "added": new Date("2012-07-17T15:37:19 UTC+0000"), "form": 0.0, "current_fixture": "Newcastle (A)", "now_cost": 42, "points_per_game": 3.2, "transfers_in": 35365, "news": "", "original_cost": 45, "event_points": 0, "news_return": "2013-05-13T09:31:21 UTC+0000",
+            "total_points": 13, "type_name": "Goalkeeper", "team_name": "Arsenal", "status": "a", "added": new Date("2012-07-17T15:37:19 UTC+0000"), "form": 0.0, "current_fixture": "Newcastle (A)", "now_cost": 42, "points_per_game": 5.2, "transfers_in": 35365, "news": "", "original_cost": 45, "event_points": 0, "news_return": "2013-05-13T09:31:21 UTC+0000",
 
             "next_fixture": "", "transfers_in_event": 0, "selected_by": "0.9", "team_id": 1, "second_name": "Fabianski",
 
