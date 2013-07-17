@@ -1,40 +1,23 @@
 ﻿@model FantasyFootballStats.Models.PlayerFilter
-@{
-    Layout = null;
+
+
+@using(Html.BeginForm()) {
+
+    <fieldset class="Positions">
+        <legend>Position:</legend>
+        @foreach(string position in FantasyFootballStats.Models.GameValues.Positions) {
+            <label for="@position">@position</label>
+            @Html.RadioButton("Position", position, new { id = position })
+        }
+    </fieldset>
+    <fieldset class="Teams">
+        <legend>Team:</legend>
+        @foreach(string team in FantasyFootballStats.Models.GameValues.Teams) {
+            <label for="@team">@team</label>
+            <input type="checkbox" name="Team" id="@team" value="@team" checked="@Model.Team.Contains(team)" />
+        }
+    </fieldset>
+            
+    <input type="submit" />
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link href="~/Content/Css/style.less" rel="stylesheet" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="~/Scripts/Inputs.js"></script>
-</head>
-<body>
-    <section>
-        <h1>Fantasy Football Stats</h1>
-        @using(Html.BeginForm()) {
-
-            <fieldset class="Positions">
-                <legend>Position:</legend>
-                @foreach(string position in FantasyFootballStats.Models.GameValues.Positions) {
-                    <label for="@position">@position</label>
-                    @Html.RadioButton("Position", position, new { id = position })
-                }
-            </fieldset>
-            <fieldset class="Teams">
-                <legend>Team:</legend>
-                @foreach(string team in FantasyFootballStats.Models.GameValues.Teams) {
-                    <label for="@team">@team</label>
-                    <input type="checkbox" name="Team" id="@team" value="@team" checked="@Model.Team.Contains(team)" />
-                }
-            </fieldset>
-            
-            <input type="submit" />
-        }
-    </section>
-</body>
-</html>
