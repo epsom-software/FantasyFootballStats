@@ -1,6 +1,11 @@
 ///<reference path='allTypings.d.ts'/>
 var QueryEngine;
 (function (QueryEngine) {
+    function error(message, value) {
+        console.log("Error: " + message, value);
+        throw (message + ": " + value);
+    }
+
     var QueryModel = (function () {
         function QueryModel(queryValue) {
             queryValue = queryValue.toLowerCase().replace(/\s+/g, " ").trim();
@@ -99,7 +104,7 @@ var QueryEngine;
         Runner.prototype.buildExpression = function (field, expression) {
             var _this = this;
             if (!/^[\w\s\-+*/'\(\)]+$/.test(expression)) {
-                throw ("Unsupported charactors in expression: " + expression);
+                error("Unsupported charactors in expression", expression);
             }
 
             while (expression.indexOf("(") != -1) {
@@ -124,7 +129,7 @@ var QueryEngine;
         Runner.prototype.buildClause = function (clauseId, expression) {
             var _this = this;
             if (!/^[\w\s=\'\(\)+<>]+$/.test(expression)) {
-                throw ("Unsupported charactors in expression: " + expression);
+                error("Unsupported charactors in expression", expression);
             }
 
             while (expression.indexOf("(") != -1) {
@@ -176,6 +181,32 @@ var QueryEngine;
                     case "<>":
                         result = !this.equal(result, nextValue);
                         break;
+                    case ">":
+                        result = parseFloat(result) > parseFloat(nextValue);
+                        break;
+                    case ">=":
+                        result = parseFloat(result) >= parseFloat(nextValue);
+                        break;
+                    case "<":
+                        result = parseFloat(result) < parseFloat(nextValue);
+                        break;
+                    case "<=":
+                        result = parseFloat(result) <= parseFloat(nextValue);
+                        break;
+                    case "and":
+                        if ((typeof result) != "boolean" || (typeof nextValue) != "boolean") {
+                            error("Attempted to apply 'and' to a non-boolean");
+                        }
+                        result = result && nextValue;
+                        break;
+                    case "or":
+                        if ((typeof result) != "boolean" || (typeof nextValue) != "boolean") {
+                            error("Attempted to apply 'or' to a non-boolean");
+                        }
+                        result = result || nextValue;
+                        break;
+                    default:
+                        error("operator not recognised", operator);
                 }
             }
 

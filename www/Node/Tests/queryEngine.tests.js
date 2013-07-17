@@ -192,6 +192,30 @@ var queryEngineTests;
                 var result = target("select * where code <> 315730");
                 expect(result.length).to.equal(1);
             });
+            it("should support >", function () {
+                var result = target("select * where code > 361544");
+                expect(result.length).to.equal(1);
+            });
+            it("should support >=", function () {
+                var result = target("select * where code >= 361545");
+                expect(result.length).to.equal(1);
+            });
+            it("should support <", function () {
+                var result = target("select * where code < 315731");
+                expect(result.length).to.equal(1);
+            });
+            it("should support <=", function () {
+                var result = target("select * where code <= 315730");
+                expect(result.length).to.equal(1);
+            });
+            it("should support and", function () {
+                var result = target("select * where (code = 315730) and (code = 315730)");
+                expect(result.length).to.equal(1);
+            });
+            it("should support or", function () {
+                var result = target("select * where (code = 315730) or (code = 2)");
+                expect(result.length).to.equal(1);
+            });
         });
     });
 })(queryEngineTests || (queryEngineTests = {}));
