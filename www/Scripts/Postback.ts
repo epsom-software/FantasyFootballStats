@@ -85,8 +85,16 @@ module Postback {
         }
 
         private static where(): string {
-            
+
             var where = "";
+
+            function appendClause(clause: string) {
+                if (where == "") {
+                    where = " (" + clause + ") ";
+                } else {
+                    where += " and (" + clause + ") ";
+                }
+            }
 
             var maxCost: number = (function () {
                 var maxCost: any = $("input[name=maxCost]").val();
@@ -101,22 +109,17 @@ module Postback {
                 //For some reason the backend values are 10 times higher than the display values.
                 //Need to think about how we want to handle this.
                 maxCost *= 10;
-                where += "(now_cost <= " + maxCost + ") ";
+                appendClause("now_cost <= " + maxCost);
+            }
+            
+            var teamFilter = QueryBuilder.filter($(".Teams"), "team_name");
+            if (teamFilter) {
+                appendClause(teamFilter);
             }
 
-            var teams: string[] = [];
-            
-            $(".Teams label.on").each(function () {
-                teams.push($(this).text());
-            });
-
-            if (teams.length > 0 && teams.length < 20) {
-                if (where != "") {
-                    where += " and ";
-                }
-
-                var teamFilter = teams.map(t => " (team_name = '" + t + "') ").join(" or ");
-                where += " ( " + teamFilter + " ) ";
+            var positionFilter = QueryBuilder.filter($(".Positions"), "type_name");
+            if (positionFilter) {
+                appendClause(positionFilter);
             }
 
             if (where != "") {
@@ -124,6 +127,25 @@ module Postback {
             }
 
             return where;
+        }
+
+        private static filter($fieldset: JQuery, field: string): string {
+            
+            var values: string[] = [];
+
+            var totalNumberOfLabels = $fieldset.find("label").length;
+
+            $fieldset.find("label.on").each(function () {
+                values.push($(this).text());
+            });
+
+            if (values.length > 0 && values.length < totalNumberOfLabels) {
+
+                var filter = values.map(v => " (" + field + " = '" + v + "') ").join(" or ");
+                return filter;
+            } else {
+                return null;
+            }
         }
     }
 
