@@ -116,7 +116,7 @@ module QueryEngine {
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    this.buildExpression(field, expression, /^[\w\s\-+*/'\(\)]+$/);
+                    this.buildExpression(field, expression, /^[\w\s\-+*/'\(\)\.]+$/);
                 }
             }
         }
@@ -124,7 +124,7 @@ module QueryEngine {
         private where(subquery: string): void {
             
             if (subquery) {
-                this.buildExpression("where", subquery, /^[\w\s=\'\(\)+<>]+$/);
+                this.buildExpression("where", subquery, /^[\w\s=\'\(\)+<>\.]+$/);
             }
         }
 

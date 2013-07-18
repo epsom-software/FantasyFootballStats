@@ -135,6 +135,10 @@ module queryEngineTests {
                 expect(result.nickname).to.equal("Lukasz");
                 expect(result.web_name).to.equal("Fabianski");
             });
+            it("support floats", function () {
+                var result = target("define (5.2) as float select float");
+                expect(result[0].float).to.equal(5.2);
+            });
 
             describe("simple operators", function () {
 
@@ -195,6 +199,10 @@ module queryEngineTests {
             });
             it("should support = for numbers", function () {
                 var result = target("select * where code = 315730");
+                expect(result.length).to.equal(1);
+            });
+            it("should support floats", function () {
+                var result = target("select points_per_game where points_per_game = 5.2");
                 expect(result.length).to.equal(1);
             });
             it("should support brackets", function () {
