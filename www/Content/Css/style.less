@@ -39,4 +39,18 @@ label.on {
 .Teams label.on {
     .colors(#0094ff);
 }
+table {
+    border-collapse: collapse;
+}
+td, th {
+    border:1px solid black;
+    color:white;
+}
 
+@tableColor: #444;
+tr {
+    background: darken(@tableColor, 5%);
+}
+tr:nth-child(odd) {
+    background: @tableColor;
+}

@@ -1,8 +1,28 @@
 ///<reference path='Definitions\jquery.d.ts'/>
 $(document).ready(function () {
+    function toHtmlRow(values, dataElementName) {
+        var tableDatas = values.join("</" + dataElementName + "><" + dataElementName + ">");
+        var row = "<tr><" + dataElementName + ">" + tableDatas + "</" + dataElementName + "></tr>";
+        return row;
+    }
+
     function callback(json) {
-        for (var j in json) {
-            $("#result").append("<hr />" + JSON.stringify(json[j]));
+        if (json && json.length > 0) {
+            var keys = Object.keys(json[0]);
+
+            var headingRow = toHtmlRow(keys, "th");
+
+            var rows = json.map(function (player) {
+                var values = keys.map(function (k) {
+                    return player[k];
+                });
+                var row = toHtmlRow(values, "td");
+                return row;
+            });
+
+            var table = "<table>" + headingRow + rows.join("") + "</table>";
+
+            $("#result").html(table);
         }
     }
 
@@ -10,5 +30,7 @@ $(document).ready(function () {
         $.getJSON("Node/server.js", { code: $("#code").val() }, callback);
         return false;
     });
+
+    $("input").last().click();
 });
 //@ sourceMappingURL=Postback.js.map
