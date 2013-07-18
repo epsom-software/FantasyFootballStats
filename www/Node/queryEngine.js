@@ -12,7 +12,13 @@ var QueryEngine;
             queryValue = this.initaliseField("orderby", queryValue);
             queryValue = this.initaliseField("where", queryValue);
             queryValue = this.initaliseField("select", queryValue);
-            this.select = this.select.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+
+            //Insert all available fields:
+            this.select = this.select.replace("**", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+
+            //Insert popular fields:
+            this.select = this.select.replace("*", " total_points type_name team_name transfers_out last_season_points transfers_balance event_cost web_name in_dreamteam status form now_cost event_points next_fixture selected_by ");
+
             queryValue = this.initaliseField("define", queryValue);
         }
         QueryModel.prototype.matchSubquery = function (keyword, query) {
@@ -64,7 +70,9 @@ var QueryEngine;
             }).map(function (p) {
                 var result = {};
                 _this.selections.forEach(function (s) {
-                    return result[s] = _this.evaluateField(p, s);
+                    if (s.length > 0) {
+                        result[s] = _this.evaluateField(p, s);
+                    }
                 });
                 return result;
             });

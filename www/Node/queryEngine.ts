@@ -36,7 +36,13 @@ module QueryEngine {
             queryValue = this.initaliseField("orderby", queryValue);
             queryValue = this.initaliseField("where", queryValue);
             queryValue = this.initaliseField("select", queryValue);
-            this.select = this.select.replace("*", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+
+            //Insert all available fields:
+            this.select = this.select.replace("**", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+
+            //Insert popular fields:
+            this.select = this.select.replace("*", " total_points type_name team_name transfers_out last_season_points transfers_balance event_cost web_name in_dreamteam status form now_cost event_points next_fixture selected_by ");
+
             queryValue = this.initaliseField("define", queryValue);
         }
 
@@ -70,7 +76,11 @@ module QueryEngine {
                 .filter((p) => this.evaluateField(p, "where"))
                 .map(p => {
                     var result = {};
-                    this.selections.forEach(s => result[s] = this.evaluateField(p, s));
+                    this.selections.forEach(s => {
+                        if (s.length > 0) {
+                            result[s] = this.evaluateField(p, s)
+                        }
+                    });
                     return result;
                 });
 

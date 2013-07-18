@@ -44,11 +44,11 @@ module queryEngineTests {
                 });
             });
 
-            describe("select *", function () {
+            describe("select **", function () {
 
-                var result = target("select *")[0];
+                var result = target("select **")[0];
 
-                it("returns all normal fields", function () {
+                it("returns every available field", function () {
                     expect(result.total_points).to.equal(13);
                     expect(result.type_name).to.equal("Goalkeeper");
                     expect(result.team_name).to.equal("Arsenal");
@@ -69,9 +69,6 @@ module queryEngineTests {
                     expect(result.max_cost).to.not.be.undefined;
                     expect(result.selected).to.not.be.undefined;
                     expect(result.min_cost).to.not.be.undefined;
-                    expect(result.total_points).to.not.be.undefined;
-                    expect(result.type_name).to.not.be.undefined;
-                    expect(result.team_name).to.not.be.undefined;
                     expect(result.status).to.not.be.undefined;
                     expect(result.form).to.not.be.undefined;
                     expect(result.current_fixture).to.not.be.undefined;
@@ -85,6 +82,22 @@ module queryEngineTests {
                     expect(result.selected_by).to.not.be.undefined;
                     expect(result.team_id).to.not.be.undefined;
                     expect(result.second_name).to.not.be.undefined;
+                });
+            });
+
+            describe("select *", function () {
+
+                var result = target("select *")[0];
+
+                it("returns only popular fields", function () {
+
+                    var popularFields = ['total_points', 'type_name', 'team_name', 'transfers_out', 'last_season_points', 'transfers_balance',
+                        'event_cost', 'web_name', 'in_dreamteam', 'status', 'form', 'now_cost', 'event_points', 'next_fixture', 'selected_by'];
+
+                    var popularFieldsFlatterned = popularFields.sort().join();
+                    var resultFlatterned = Object.keys(result).sort().join();
+
+                    expect(resultFlatterned).to.equal(popularFieldsFlatterned);
                 });
             });
 
@@ -120,8 +133,7 @@ module queryEngineTests {
                 var result = target("define (second_name) as surname (first_name) as nickname\nselect surname * nickname")[0];
                 expect(result.surname).to.equal("Fabianski");
                 expect(result.nickname).to.equal("Lukasz");
-                expect(result.second_name).to.equal("Fabianski");
-                expect(result.first_name).to.equal("Lukasz");
+                expect(result.web_name).to.equal("Fabianski");
             });
 
             describe("simple operators", function () {
@@ -225,22 +237,22 @@ module queryEngineTests {
         
         describe("orderby", function () {
             it("supports asc", function () {
-                var result = target("select * orderby points_per_game asc");
+                var result = target("select points_per_game orderby points_per_game asc");
                 expect(result[0].points_per_game).to.equal(4.1);
                 expect(result[1].points_per_game).to.equal(5.2);
             });
             it("supports desc", function () {
-                var result = target("select * orderby points_per_game desc");
+                var result = target("select points_per_game orderby points_per_game desc");
                 expect(result[0].points_per_game).to.equal(5.2);
                 expect(result[1].points_per_game).to.equal(4.1);
             });
             it("defaults to desc", function () {
-                var result = target("select * orderby points_per_game");
+                var result = target("select points_per_game orderby points_per_game");
                 expect(result[0].points_per_game).to.equal(5.2);
                 expect(result[1].points_per_game).to.equal(4.1);
             });
             it("checks order when selecting top", function () {
-                var result = target("select top 1 * orderby points_per_game asc");
+                var result = target("select top 1 points_per_game orderby points_per_game asc");
                 expect(result[0].points_per_game).to.equal(4.1);
             });
         });
