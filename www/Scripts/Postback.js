@@ -1,5 +1,11 @@
 ///<reference path='Definitions\jquery.d.ts'/>
 $(document).ready(function () {
+    function toReadableEnglish(value) {
+        return value.split("_").map(function (word) {
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        }).join(" ");
+    }
+
     function toHtmlRow(values, dataElementName) {
         var tableDatas = values.join("</" + dataElementName + "><" + dataElementName + ">");
         var row = "<tr><" + dataElementName + ">" + tableDatas + "</" + dataElementName + "></tr>";
@@ -10,7 +16,7 @@ $(document).ready(function () {
         if (json && json.length > 0) {
             var keys = Object.keys(json[0]);
 
-            var headingRow = toHtmlRow(keys, "th");
+            var headingRow = toHtmlRow(keys.map(toReadableEnglish), "th");
 
             var rows = json.map(function (player) {
                 var values = keys.map(function (k) {

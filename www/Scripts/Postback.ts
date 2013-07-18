@@ -2,6 +2,10 @@
 
 $(document).ready(function () {
     
+    function toReadableEnglish(value: string) {
+        return value.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+    }
+
     function toHtmlRow(values: string[], dataElementName: string) {
         var tableDatas: string = values.join("</" + dataElementName + "><" + dataElementName + ">");
         var row: string = "<tr><" + dataElementName + ">" + tableDatas + "</" + dataElementName + "></tr>";
@@ -14,7 +18,7 @@ $(document).ready(function () {
 
             var keys: Array = Object.keys(json[0]);
 
-            var headingRow = toHtmlRow(keys, "th");
+            var headingRow = toHtmlRow(keys.map(toReadableEnglish), "th");
 
             var rows: string[] = json.map(player => {
                 var values: Array = keys.map(k => player[k]);
