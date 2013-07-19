@@ -126,6 +126,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Robots.txt" />
     <TypeScriptCompile Include="Node\server.ts" />
     <Content Include="Node\allTypings.d.ts" />
     <TypeScriptCompile Include="Node\queryEngine.ts" />
