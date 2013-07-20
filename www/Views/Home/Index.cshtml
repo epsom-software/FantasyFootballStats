@@ -26,10 +26,13 @@
         }
     </fieldset>
 
+    <fieldset class="Define">
+        <legend>Custom fields:</legend>
+        <textarea></textarea>
+    </fieldset>
 
     <fieldset>
         <legend>Filters:</legend>
-
         <label>Max cost:</label><input type="number" name="maxCost" max="20" min="0" step="0.1" />
     </fieldset>
 
@@ -44,3 +47,14 @@
 
 </form>
 
+
+
+    <script>
+      CodeMirror.commands.autocomplete = function(cm) {
+        CodeMirror.showHint(cm, CodeMirror.hint.javascript);
+      }
+      var editor = CodeMirror.fromTextArea($("fieldset.Define textarea")[0], {
+        lineNumbers: true,
+        extraKeys: {"Ctrl-Space": "autocomplete"}
+      });
+    </script>

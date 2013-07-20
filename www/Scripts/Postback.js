@@ -34,6 +34,7 @@ var Postback;
         };
         return Format;
     })();
+    Postback.Format = Format;
 
     function callback(json) {
         if (json && json.length > 0) {

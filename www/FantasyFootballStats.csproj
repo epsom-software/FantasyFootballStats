@@ -125,6 +125,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <TypeScriptCompile Include="CodeMirror\addon\hint\FieldNames-hint.ts" />
+    <Content Include="CodeMirror\addon\hint\FieldNames-hint.js">
+      <DependentUpon>FieldNames-hint.ts</DependentUpon>
+    </Content>
+    <Content Include="CodeMirror\addon\hint\show-hint.css" />
+    <Content Include="CodeMirror\addon\hint\show-hint.js" />
+    <Content Include="CodeMirror\lib\codemirror.css" />
+    <Content Include="CodeMirror\lib\codemirror.js" />
+    <Content Include="CodeMirror\mode\javascript\index.html" />
+    <Content Include="CodeMirror\mode\javascript\javascript.js" />
+    <Content Include="CodeMirror\mode\sql\index.html" />
+    <Content Include="CodeMirror\mode\sql\sql.js" />
     <Content Include="Global.asax" />
     <Content Include="Robots.txt" />
     <TypeScriptCompile Include="Node\server.ts" />
