@@ -7,12 +7,15 @@ module CodeEditor {
 
         var CodeMirror = (<any>window).CodeMirror;
 
-        var editor = CodeMirror.fromTextArea($("fieldset.Define textarea")[0], {
-            onKeyEvent: function (e, s) {
-                if (s.type == "keyup") {
-                    CodeMirror.showHint(e);
-                }
-            }
+        $("fieldset.Define textarea").each(function () {
+            CodeMirror.fromTextArea(this, {
+                onKeyEvent: function (e, s) {
+                    if (s.type == "keyup") {
+                        CodeMirror.showHint(e);
+                    }
+                },
+                lineWrapping: true
+            });
         });
     });
 }

@@ -5,56 +5,92 @@
 }
 
 body {
-    background:#dedede;
+    background: #dedede;
 }
 
 input[type=radio], input[type=checkbox] {
     display: none;
 }
+
 fieldset {
     border: none;
 }
-       
+
 .boxen label {
     border: 2px solid black;
     padding: 3px;
     opacity: 0.4;
     .colors(#c8c8c8);
-    margin-right:2px;
-    line-height:2em;
+    margin-right: 2px;
+    line-height: 2em;
 }
-.boxen label:hover {
-    border: 2px solid black;
-    padding: 3px;
-    background: #c8c8c8;
-    opacity: 0.6;
-}
-.boxen label.on {
-    .colors(white);
-    opacity: 1;
-}
+
+    .boxen label:hover {
+        border: 2px solid black;
+        padding: 3px;
+        background: #c8c8c8;
+        opacity: 0.6;
+    }
+
+    .boxen label.on {
+        .colors(white);
+        opacity: 1;
+    }
+
 .Positions label.on {
     .colors(#ffd800);
 }
+
 .Teams label.on {
     .colors(#0094ff);
 }
+
 .Fields label.on {
     .colors(#b200ff);
 }
+
 table {
     border-collapse: collapse;
 }
+
 td, th {
-    border:1px solid black;
-    color:white;
-    padding:1px 3px;
+    border: 1px solid black;
+    color: white;
+    padding: 1px 3px;
 }
 
 @tableColor: #444;
+
 tr {
     background: darken(@tableColor, 5%);
 }
+
 tr:nth-child(odd) {
     background: @tableColor;
+}
+
+.Define input,
+.Define .CodeMirror {
+    height: 25px;
+    border: none;
+    padding: 0;
+    float: left;
+    font-family:consolas, monospace;
+    font-size:18px;
+}
+
+.Define input {
+    display: block;
+    width: 200px;
+    margin-right: 10px;
+    padding-left:4px;
+}
+
+.Define .CodeMirror {
+    width: 800px;
+}
+
+.Define > div {
+    clear: left;
+    padding-top: 10px;
 }
