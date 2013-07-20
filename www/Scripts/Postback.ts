@@ -4,13 +4,18 @@ module Postback {
 
     var $ = jQuery;
 
-    export class Format {
+    class Format {
 
-        public static toReadableEnglish(value: string): string {
+        private static toReadableEnglish(value: string): string {
+            
             $(".Fields label").each(function () {
                 var fieldName: string = $(this).text();
                 if (value == fieldName.toLowerCase()) {
-                    return fieldName;
+                    
+                    value = fieldName;
+
+                    //Break the loop:
+                    return false;
                 }
             });
 

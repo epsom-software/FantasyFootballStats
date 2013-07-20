@@ -10,7 +10,10 @@ var Postback;
             $(".Fields label").each(function () {
                 var fieldName = $(this).text();
                 if (value == fieldName.toLowerCase()) {
-                    return fieldName;
+                    value = fieldName;
+
+                    //Break the loop:
+                    return false;
                 }
             });
 
@@ -41,7 +44,6 @@ var Postback;
         };
         return Format;
     })();
-    Postback.Format = Format;
 
     function callback(json) {
         if (json && json.length > 0) {
