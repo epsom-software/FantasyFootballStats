@@ -4,7 +4,7 @@ var model;
         function player() {
         }
         player.prototype.toString = function () {
-            return this.second_name;
+            return this.name;
         };
         return player;
     })();

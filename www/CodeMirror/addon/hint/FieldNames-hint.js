@@ -2,7 +2,7 @@
 (function () {
     var CodeMirror = (window).CodeMirror;
 
-    var keywords = ("total_points type_name team_name transfers_out code event_total last_season_points transfers_balance " + "event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected " + "min_cost status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture " + "transfers_in_event selected_by team_id second_name").split(" ").map(Postback.Format.toReadableEnglish);
+    var keywords = ("TotalPoints TypeName TeamName TransfersOut Code EventTotal LastSeasonPoints TransfersBalance EventCost WebName InDreamteam " + "TeamCode Id FirstName TransfersOutEvent ElementTypeId MaxCost Selected MinCost Status Form CurrentFixture NowCost PointsPerGame " + "TransfersIn OriginalCost EventPoints NextFixture TransfersInEvent SelectedBy TeamId SecondName").split(" ").map(Postback.Format.toReadableEnglish);
 
     function hint(editor) {
         var cur = editor.getCursor();

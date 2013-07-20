@@ -3,95 +3,722 @@ var playerRepository;
 (function (playerRepository) {
     function fabianski() {
         return {
-            "transfers_out": 25110,
-            "code": 315730,
-            "event_total": 0,
-            "last_season_points": 0,
-            "squad_number": null,
-            "transfers_balance": -2,
-            "news_updated": "2013-05-02T14:31:18 UTC+0000",
-            "event_cost": 42,
-            "news_added": "2013-04-15T15:31:19 UTC+0000",
-            "web_name": "Fabianski",
-            "in_dreamteam": false,
-            "team_code": 315730,
+            "transfersout": 45,
+            "code": 37096,
+            "eventtotal": 0,
+            "lastseasonpoints": 0,
+            "squadnumber": null,
+            "transfersbalance": 0,
+            "eventcost": 4.5,
+            "indreamteam": false,
             "id": 1,
-            "first_name": "Lukasz",
-            "transfers_out_event": 39,
-            "element_type_id": 1,
-            "max_cost": 45,
-            "event_explain": [["Minutes played", 0, 0]],
-            "selected": 23050,
-            "min_cost": 42,
-            "fixtures": { "all": [], "summary": [] },
-            "total_points": 13,
-            "type_name": "Goalkeeper",
-            "team_name": "Arsenal",
+            "firstname": "Lukasz",
+            "transfersoutevent": 0,
+            "maxcost": 4.5,
+            "eventexplain": [],
+            "selected": 1717,
+            "mincost": 4.5,
+            "totalpoints": 13,
+            "typename": "Goalkeeper",
+            "teamname": "Arsenal",
             "status": "a",
-            "added": new Date("2012-07-17T15:37:19 UTC+0000"),
-            "form": 0.0,
-            "current_fixture": "Newcastle (A)",
-            "now_cost": 42,
-            "points_per_game": 5.2,
-            "transfers_in": 35365,
+            "added": new Date("2013-07-15T13:21:12 UTC+0000"),
+            "form": 0,
+            "currentfixture": "",
+            "pointspergame": 4.1,
+            "transfersin": 62,
             "news": "",
-            "original_cost": 45,
-            "event_points": 0,
-            "news_return": "2013-05-13T09:31:21 UTC+0000",
-            "next_fixture": "",
-            "transfers_in_event": 0,
-            "selected_by": "0.9",
-            "team_id": 1,
-            "second_name": "Fabianski",
-            "season_history": [["2007/08", 248, 0, 0, 0, 2, 0, 0, 0, 0, 0, 8, 0, 0, 46, 15], ["2008/09", 463, 0, 0, 0, 10, 0, 0, 0, 0, 0, 18, 0, 0, 46, 20], ["2009/10", 360, 0, 0, 0, 5, 0, 0, 0, 1, 0, 11, 0, 0, 49, 15], ["2010/11", 1260, 0, 1, 5, 14, 0, 0, 0, 0, 0, 33, 2, 0, 45, 55], ["2011/12", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 0]],
-            "fixture_history": { "all": [["18 Aug 15:00", 1, "SUN(H) 0-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0], ["26 Aug 13:30", 2, "STK(A) 0-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -242, 45, 0], ["02 Sep 13:30", 3, "LIV(A) 2-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -725, 45, 0], ["15 Sep 15:00", 4, "SOU(H) 6-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -919, 45, 0], ["23 Sep 16:00", 5, "MCI(A) 1-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -942, 45, 0], ["29 Sep 12:45", 6, "CHE(H) 1-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -578, 45, 0], ["06 Oct 17:30", 7, "WHU(A) 3-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -330, 44, 0], ["20 Oct 17:30", 8, "NOR(A) 0-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -348, 44, 0], ["27 Oct 15:00", 9, "QPR(H) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -212, 44, 0], ["03 Nov 12:45", 10, "MUN(A) 1-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -193, 44, 0], ["10 Nov 15:00", 11, "FUL(H) 3-3", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -173, 44, 0], ["17 Nov 12:45", 12, "TOT(H) 5-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -154, 44, 0], ["24 Nov 17:30", 13, "AVL(A) 0-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -165, 44, 0], ["28 Nov 19:45", 14, "EVE(A) 1-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -64, 44, 0], ["01 Dec 15:00", 15, "SWA(H) 0-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -92, 44, 0], ["08 Dec 15:00", 16, "WBA(H) 2-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -91, 44, 0], ["17 Dec 20:00", 17, "RDG(A) 5-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -109, 44, 0], ["22 Dec 12:45", 18, "WIG(A) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -63, 44, 0], ["29 Dec 17:30", 20, "NEW(H) 7-3", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -47, 43, 0], ["01 Jan 17:30", 21, "SOU(A) 1-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -57, 43, 0], ["13 Jan 16:00", 22, "MCI(H) 0-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -182, 43, 0], ["20 Jan 13:30", 23, "CHE(A) 1-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -99, 43, 0], ["23 Jan 19:45", 23, "WHU(H) 5-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -99, 43, 0], ["30 Jan 19:45", 24, "LIV(H) 2-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -71, 43, 0], ["02 Feb 15:00", 25, "STK(H) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -31, 43, 0], ["09 Feb 15:00", 26, "SUN(A) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -38, 43, 0], ["23 Feb 15:00", 27, "AVL(H) 2-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 43, 0], ["03 Mar 16:00", 28, "TOT(A) 1-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 43, 0], ["16 Mar 15:00", 30, "SWA(A) 2-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 15, 825, 43, 6], ["30 Mar 15:00", 31, "RDG(H) 4-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 14, 9181, 43, 2], ["06 Apr 15:00", 32, "WBA(A) 2-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 0, 15, 5135, 43, 3], ["13 Apr 15:00", 33, "NOR(H) 3-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 13, 16848, 44, 2], ["16 Apr 19:45", 33, "EVE(H) 0-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16848, 44, 0], ["20 Apr 15:00", 34, "FUL(A) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6055, 44, 0], ["28 Apr 16:00", 35, "MUN(H) 1-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3988, 43, 0], ["04 May 17:30", 36, "QPR(A) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3189, 42, 0], ["14 May 19:45", 37, "WIG(H) 4-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1262, 42, 0], ["19 May 16:00", 38, "NEW(A) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1217, 42, 0]], "summary": [[36, "QPR (A)", 0], [37, "WIG (H)", 0], [38, "NEW (A)", 0]] }
+            "originalcost": 4.5,
+            "eventpoints": 0,
+            "fixturehistory": {
+                "all": [],
+                "summary": []
+            },
+            "nextfixture": "Aston Villa (H)",
+            "transfersinevent": 0,
+            "selectedby": "0.7",
+            "teamid": 1,
+            "secondname": "Fabianski",
+            "name": "Fabianski",
+            "cost": 4.5,
+            "seasonhistory": [
+                [
+                    "2007/08",
+                    248,
+                    0,
+                    0,
+                    0,
+                    2,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    8,
+                    0,
+                    0,
+                    0,
+                    46,
+                    15
+                ],
+                [
+                    "2008/09",
+                    463,
+                    0,
+                    0,
+                    0,
+                    10,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    18,
+                    0,
+                    0,
+                    0,
+                    46,
+                    20
+                ],
+                [
+                    "2009/10",
+                    360,
+                    0,
+                    0,
+                    0,
+                    5,
+                    0,
+                    0,
+                    0,
+                    1,
+                    0,
+                    11,
+                    0,
+                    0,
+                    0,
+                    49,
+                    15
+                ],
+                [
+                    "2010/11",
+                    1260,
+                    0,
+                    1,
+                    5,
+                    14,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    33,
+                    2,
+                    0,
+                    0,
+                    45,
+                    55
+                ],
+                [
+                    "2011/12",
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    53,
+                    0
+                ],
+                [
+                    "2012/13",
+                    360,
+                    0,
+                    0,
+                    1,
+                    3,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    7,
+                    0,
+                    57,
+                    0,
+                    42,
+                    13
+                ]
+            ],
+            "fixtures": {
+                "all": [
+                    [
+                        "17 Aug 15:00",
+                        "Gameweek 1",
+                        "Aston Villa (H)"
+                    ],
+                    [
+                        "24 Aug 12:45",
+                        "Gameweek 2",
+                        "Fulham (A)"
+                    ],
+                    [
+                        "01 Sep 16:00",
+                        "Gameweek 3",
+                        "Tottenham (H)"
+                    ],
+                    [
+                        "14 Sep 15:00",
+                        "Gameweek 4",
+                        "Sunderland (A)"
+                    ],
+                    [
+                        "22 Sep 13:30",
+                        "Gameweek 5",
+                        "Stoke City (H)"
+                    ],
+                    [
+                        "28 Sep 17:30",
+                        "Gameweek 6",
+                        "Swansea (A)"
+                    ],
+                    [
+                        "06 Oct 16:00",
+                        "Gameweek 7",
+                        "West Brom (A)"
+                    ],
+                    [
+                        "19 Oct 15:00",
+                        "Gameweek 8",
+                        "Norwich (H)"
+                    ],
+                    [
+                        "26 Oct 12:45",
+                        "Gameweek 9",
+                        "Crystal Palace (A)"
+                    ],
+                    [
+                        "02 Nov 17:30",
+                        "Gameweek 10",
+                        "Liverpool (H)"
+                    ],
+                    [
+                        "10 Nov 16:10",
+                        "Gameweek 11",
+                        "Man Utd (A)"
+                    ],
+                    [
+                        "23 Nov 15:00",
+                        "Gameweek 12",
+                        "Southampton (H)"
+                    ],
+                    [
+                        "30 Nov 15:00",
+                        "Gameweek 13",
+                        "Cardiff City (A)"
+                    ],
+                    [
+                        "04 Dec 19:45",
+                        "Gameweek 14",
+                        "Hull City (H)"
+                    ],
+                    [
+                        "07 Dec 15:00",
+                        "Gameweek 15",
+                        "Everton (H)"
+                    ],
+                    [
+                        "14 Dec 15:00",
+                        "Gameweek 16",
+                        "Man City (A)"
+                    ],
+                    [
+                        "21 Dec 15:00",
+                        "Gameweek 17",
+                        "Chelsea (H)"
+                    ],
+                    [
+                        "26 Dec 15:00",
+                        "Gameweek 18",
+                        "West Ham (A)"
+                    ],
+                    [
+                        "28 Dec 15:00",
+                        "Gameweek 19",
+                        "Newcastle (A)"
+                    ],
+                    [
+                        "01 Jan 15:00",
+                        "Gameweek 20",
+                        "Cardiff City (H)"
+                    ],
+                    [
+                        "11 Jan 15:00",
+                        "Gameweek 21",
+                        "Aston Villa (A)"
+                    ],
+                    [
+                        "18 Jan 15:00",
+                        "Gameweek 22",
+                        "Fulham (H)"
+                    ],
+                    [
+                        "28 Jan 19:45",
+                        "Gameweek 23",
+                        "Southampton (A)"
+                    ],
+                    [
+                        "01 Feb 15:00",
+                        "Gameweek 24",
+                        "Crystal Palace (H)"
+                    ],
+                    [
+                        "08 Feb 15:00",
+                        "Gameweek 25",
+                        "Liverpool (A)"
+                    ],
+                    [
+                        "11 Feb 19:45",
+                        "Gameweek 26",
+                        "Man Utd (H)"
+                    ],
+                    [
+                        "22 Feb 15:00",
+                        "Gameweek 27",
+                        "Sunderland (H)"
+                    ],
+                    [
+                        "01 Mar 15:00",
+                        "Gameweek 28",
+                        "Stoke City (A)"
+                    ],
+                    [
+                        "08 Mar 15:00",
+                        "Gameweek 29",
+                        "Swansea (H)"
+                    ],
+                    [
+                        "15 Mar 15:00",
+                        "Gameweek 30",
+                        "Tottenham (A)"
+                    ],
+                    [
+                        "22 Mar 15:00",
+                        "Gameweek 31",
+                        "Chelsea (A)"
+                    ],
+                    [
+                        "29 Mar 15:00",
+                        "Gameweek 32",
+                        "Man City (H)"
+                    ],
+                    [
+                        "05 Apr 15:00",
+                        "Gameweek 33",
+                        "Everton (A)"
+                    ],
+                    [
+                        "12 Apr 15:00",
+                        "Gameweek 34",
+                        "West Ham (H)"
+                    ],
+                    [
+                        "19 Apr 15:00",
+                        "Gameweek 35",
+                        "Hull City (A)"
+                    ],
+                    [
+                        "26 Apr 15:00",
+                        "Gameweek 36",
+                        "Newcastle (H)"
+                    ],
+                    [
+                        "03 May 15:00",
+                        "Gameweek 37",
+                        "West Brom (H)"
+                    ],
+                    [
+                        "11 May 15:00",
+                        "Gameweek 38",
+                        "Norwich (A)"
+                    ]
+                ],
+                "summary": [
+                    [
+                        1,
+                        "AVL (H)",
+                        "17 Aug 15:00"
+                    ],
+                    [
+                        2,
+                        "FUL (A)",
+                        "24 Aug 12:45"
+                    ],
+                    [
+                        3,
+                        "TOT (H)",
+                        "01 Sep 16:00"
+                    ]
+                ]
+            }
         };
     }
 
     function szczesny() {
         return {
-            "transfers_out": 247908,
-            "code": 361545,
-            "event_total": 6,
-            "last_season_points": 0,
-            "squad_number": null,
-            "transfers_balance": 3457,
-            "news_updated": "2012-11-15T16:31:15 UTC+0000",
-            "event_cost": 53,
-            "news_added": "2012-09-17T15:01:14 UTC+0000",
-            "web_name": "Szczesny",
-            "in_dreamteam": false,
-            "team_code": 361545,
+            "transfersout": 98,
+            "code": 59936,
+            "eventtotal": 0,
+            "lastseasonpoints": 0,
+            "squadnumber": null,
+            "transfersbalance": 0,
+            "eventcost": 5.5,
+            "indreamteam": false,
             "id": 2,
-            "first_name": "Wojciech",
-            "transfers_out_event": 34,
-            "element_type_id": 1,
-            "max_cost": 55,
-            "event_explain": [["Clean sheets", 1, 4], ["Minutes played", 90, 2]],
-            "selected": 115458,
-            "min_cost": 53,
-            "fixtures": { "all": [], "summary": [] },
-            "total_points": 102,
-            "type_name": "Goalkeeper",
-            "team_name": "Arsenal",
+            "firstname": "Wojciech",
+            "transfersoutevent": 0,
+            "maxcost": 5.5,
+            "eventexplain": [],
+            "selected": 14288,
+            "mincost": 5.5,
+            "totalpoints": 102,
+            "typename": "Goalkeeper",
+            "teamname": "Arsenal",
             "status": "a",
-            "added": new Date("2012-07-17T15:37:19 UTC+0000"),
-            "form": 0.0,
-            "current_fixture": "Newcastle (A)",
-            "now_cost": 53,
-            "points_per_game": 4.1,
-            "transfers_in": 101019,
+            "added": new Date("2013-07-15T13:21:12 UTC+0000"),
+            "form": 0,
+            "currentfixture": "",
+            "pointspergame": 5.2,
+            "transfersin": 164,
             "news": "",
-            "original_cost": 55,
-            "event_points": 6,
-            "news_return": null,
-            "next_fixture": "",
-            "transfers_in_event": 50,
-            "selected_by": "4.4",
-            "team_id": 1,
-            "second_name": "Szczesny",
-            "season_history": [["2008/09", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0], ["2009/10", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 45, 0], ["2010/11", 1350, 0, 0, 6, 19, 0, 1, 0, 1, 0, 45, 0, 0, 43, 62], ["2011/12", 3420, 0, 0, 13, 49, 0, 1, 0, 2, 0, 82, 8, 469, 59, 139]],
-            "fixture_history": { "all": [["18 Aug 15:00", 1, "SUN(H) 0-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 10, 0, 55, 6], ["26 Aug 13:30", 2, "STK(A) 0-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3588, 55, 0], ["02 Sep 13:30", 3, "LIV(A) 2-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -34538, 55, 0], ["15 Sep 15:00", 4, "SOU(H) 6-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 13, -14487, 55, 2], ["23 Sep 16:00", 5, "MCI(A) 1-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -27778, 55, 0], ["29 Sep 12:45", 6, "CHE(H) 1-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -26204, 55, 0], ["06 Oct 17:30", 7, "WHU(A) 3-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -16557, 54, 0], ["20 Oct 17:30", 8, "NOR(A) 0-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -12045, 54, 0], ["27 Oct 15:00", 9, "QPR(H) 1-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -6468, 54, 0], ["03 Nov 12:45", 10, "MUN(A) 1-2", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5730, 53, 0], ["10 Nov 15:00", 11, "FUL(H) 3-3", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3527, 53, 0], ["17 Nov 12:45", 12, "TOT(H) 5-2", 90, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 13, -2787, 53, 1], ["24 Nov 17:30", 13, "AVL(A) 0-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5, 1, 14, 2183, 53, 8], ["28 Nov 19:45", 14, "EVE(A) 1-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 8, 0, 13, 2873, 53, 4], ["01 Dec 15:00", 15, "SWA(H) 0-2", 90, 0, 0, 0, 2, 0, 0, 0, 0, 0, 5, 0, 5, 7855, 53, 2], ["08 Dec 15:00", 16, "WBA(H) 2-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 17, 966, 53, 6], ["17 Dec 20:00", 17, "RDG(A) 5-2", 90, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 14, 5142, 53, 1], ["22 Dec 12:45", 18, "WIG(A) 1-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3, 0, 18, 193, 53, 7], ["29 Dec 17:30", 20, "NEW(H) 7-3", 90, 0, 0, 0, 3, 0, 0, 0, 0, 0, 4, 0, 18, 349, 53, 2], ["01 Jan 17:30", 21, "SOU(A) 1-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 4, 0, 10, 962, 53, 3], ["13 Jan 16:00", 22, "MCI(H) 0-2", 90, 0, 0, 0, 2, 0, 1, 0, 0, 0, 2, 0, 3, 2419, 53, 6], ["20 Jan 13:30", 23, "CHE(A) 1-2", 90, 0, 0, 0, 2, 0, 0, 0, 1, 0, 4, 0, 3, 12835, 53, 1], ["23 Jan 19:45", 23, "WHU(H) 5-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 14, 12835, 53, 2], ["30 Jan 19:45", 24, "LIV(H) 2-2", 90, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 6, -4166, 53, 1], ["02 Feb 15:00", 25, "STK(H) 1-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 16, -2911, 53, 6], ["09 Feb 15:00", 26, "SUN(A) 1-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 4, 0, 22, -1920, 53, 7], ["23 Feb 15:00", 27, "AVL(H) 2-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 14, 1452, 53, 2], ["03 Mar 16:00", 28, "TOT(A) 1-2", 90, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 4, -2512, 53, 1], ["16 Mar 15:00", 30, "SWA(A) 2-0", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1355, 53, 0], ["30 Mar 15:00", 31, "RDG(H) 4-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4056, 53, 0], ["06 Apr 15:00", 32, "WBA(A) 2-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4919, 53, 0], ["13 Apr 15:00", 33, "NOR(H) 3-1", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -4462, 53, 0], ["16 Apr 19:45", 33, "EVE(H) 0-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3, 0, 11, -4462, 53, 7], ["20 Apr 15:00", 34, "FUL(A) 1-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 3, 2, 20, -574, 53, 9], ["28 Apr 16:00", 35, "MUN(H) 1-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 3, 0, 8, -240, 53, 3], ["04 May 17:30", 36, "QPR(A) 1-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 5, 0, 20, 153, 53, 7], ["14 May 19:45", 37, "WIG(H) 4-1", 90, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 12, 3664, 53, 2], ["19 May 16:00", 38, "NEW(A) 1-0", 90, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 16, 843, 53, 6]], "summary": [[36, "QPR (A)", 7], [37, "WIG (H)", 2], [38, "NEW (A)", 6]] }
+            "originalcost": 5.5,
+            "eventpoints": 0,
+            "fixturehistory": {
+                "all": [],
+                "summary": []
+            },
+            "nextfixture": "Aston Villa (H)",
+            "transfersinevent": 0,
+            "selectedby": "5.5",
+            "teamid": 1,
+            "secondname": "Szczesny",
+            "name": "Szczesny",
+            "cost": 5.5,
+            "seasonhistory": [
+                [
+                    "2008/09",
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    45,
+                    0
+                ],
+                [
+                    "2009/10",
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    45,
+                    0
+                ],
+                [
+                    "2010/11",
+                    1350,
+                    0,
+                    0,
+                    6,
+                    19,
+                    0,
+                    1,
+                    0,
+                    1,
+                    0,
+                    45,
+                    0,
+                    0,
+                    0,
+                    43,
+                    62
+                ],
+                [
+                    "2011/12",
+                    3420,
+                    0,
+                    0,
+                    13,
+                    49,
+                    0,
+                    1,
+                    0,
+                    2,
+                    0,
+                    82,
+                    8,
+                    469,
+                    0,
+                    59,
+                    139
+                ],
+                [
+                    "2012/13",
+                    2250,
+                    0,
+                    0,
+                    10,
+                    24,
+                    0,
+                    1,
+                    0,
+                    1,
+                    0,
+                    71,
+                    3,
+                    314,
+                    0,
+                    53,
+                    102
+                ]
+            ],
+            "fixtures": {
+                "all": [
+                    [
+                        "17 Aug 15:00",
+                        "Gameweek 1",
+                        "Aston Villa (H)"
+                    ],
+                    [
+                        "24 Aug 12:45",
+                        "Gameweek 2",
+                        "Fulham (A)"
+                    ],
+                    [
+                        "01 Sep 16:00",
+                        "Gameweek 3",
+                        "Tottenham (H)"
+                    ],
+                    [
+                        "14 Sep 15:00",
+                        "Gameweek 4",
+                        "Sunderland (A)"
+                    ],
+                    [
+                        "22 Sep 13:30",
+                        "Gameweek 5",
+                        "Stoke City (H)"
+                    ],
+                    [
+                        "28 Sep 17:30",
+                        "Gameweek 6",
+                        "Swansea (A)"
+                    ],
+                    [
+                        "06 Oct 16:00",
+                        "Gameweek 7",
+                        "West Brom (A)"
+                    ],
+                    [
+                        "19 Oct 15:00",
+                        "Gameweek 8",
+                        "Norwich (H)"
+                    ],
+                    [
+                        "26 Oct 12:45",
+                        "Gameweek 9",
+                        "Crystal Palace (A)"
+                    ],
+                    [
+                        "02 Nov 17:30",
+                        "Gameweek 10",
+                        "Liverpool (H)"
+                    ],
+                    [
+                        "10 Nov 16:10",
+                        "Gameweek 11",
+                        "Man Utd (A)"
+                    ],
+                    [
+                        "23 Nov 15:00",
+                        "Gameweek 12",
+                        "Southampton (H)"
+                    ],
+                    [
+                        "30 Nov 15:00",
+                        "Gameweek 13",
+                        "Cardiff City (A)"
+                    ],
+                    [
+                        "04 Dec 19:45",
+                        "Gameweek 14",
+                        "Hull City (H)"
+                    ],
+                    [
+                        "07 Dec 15:00",
+                        "Gameweek 15",
+                        "Everton (H)"
+                    ],
+                    [
+                        "14 Dec 15:00",
+                        "Gameweek 16",
+                        "Man City (A)"
+                    ],
+                    [
+                        "21 Dec 15:00",
+                        "Gameweek 17",
+                        "Chelsea (H)"
+                    ],
+                    [
+                        "26 Dec 15:00",
+                        "Gameweek 18",
+                        "West Ham (A)"
+                    ],
+                    [
+                        "28 Dec 15:00",
+                        "Gameweek 19",
+                        "Newcastle (A)"
+                    ],
+                    [
+                        "01 Jan 15:00",
+                        "Gameweek 20",
+                        "Cardiff City (H)"
+                    ],
+                    [
+                        "11 Jan 15:00",
+                        "Gameweek 21",
+                        "Aston Villa (A)"
+                    ],
+                    [
+                        "18 Jan 15:00",
+                        "Gameweek 22",
+                        "Fulham (H)"
+                    ],
+                    [
+                        "28 Jan 19:45",
+                        "Gameweek 23",
+                        "Southampton (A)"
+                    ],
+                    [
+                        "01 Feb 15:00",
+                        "Gameweek 24",
+                        "Crystal Palace (H)"
+                    ],
+                    [
+                        "08 Feb 15:00",
+                        "Gameweek 25",
+                        "Liverpool (A)"
+                    ],
+                    [
+                        "11 Feb 19:45",
+                        "Gameweek 26",
+                        "Man Utd (H)"
+                    ],
+                    [
+                        "22 Feb 15:00",
+                        "Gameweek 27",
+                        "Sunderland (H)"
+                    ],
+                    [
+                        "01 Mar 15:00",
+                        "Gameweek 28",
+                        "Stoke City (A)"
+                    ],
+                    [
+                        "08 Mar 15:00",
+                        "Gameweek 29",
+                        "Swansea (H)"
+                    ],
+                    [
+                        "15 Mar 15:00",
+                        "Gameweek 30",
+                        "Tottenham (A)"
+                    ],
+                    [
+                        "22 Mar 15:00",
+                        "Gameweek 31",
+                        "Chelsea (A)"
+                    ],
+                    [
+                        "29 Mar 15:00",
+                        "Gameweek 32",
+                        "Man City (H)"
+                    ],
+                    [
+                        "05 Apr 15:00",
+                        "Gameweek 33",
+                        "Everton (A)"
+                    ],
+                    [
+                        "12 Apr 15:00",
+                        "Gameweek 34",
+                        "West Ham (H)"
+                    ],
+                    [
+                        "19 Apr 15:00",
+                        "Gameweek 35",
+                        "Hull City (A)"
+                    ],
+                    [
+                        "26 Apr 15:00",
+                        "Gameweek 36",
+                        "Newcastle (H)"
+                    ],
+                    [
+                        "03 May 15:00",
+                        "Gameweek 37",
+                        "West Brom (H)"
+                    ],
+                    [
+                        "11 May 15:00",
+                        "Gameweek 38",
+                        "Norwich (A)"
+                    ]
+                ],
+                "summary": [
+                    [
+                        1,
+                        "AVL (H)",
+                        "17 Aug 15:00"
+                    ],
+                    [
+                        2,
+                        "FUL (A)",
+                        "24 Aug 12:45"
+                    ],
+                    [
+                        3,
+                        "TOT (H)",
+                        "01 Sep 16:00"
+                    ]
+                ]
+            }
         };
     }
 

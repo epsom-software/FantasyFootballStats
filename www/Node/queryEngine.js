@@ -14,10 +14,10 @@ var QueryEngine;
             queryValue = this.initaliseField("select", queryValue);
 
             //Insert all available fields:
-            this.select = this.select.replace("**", " transfers_out code event_total last_season_points squad_number transfers_balance event_cost web_name in_dreamteam team_code id first_name transfers_out_event element_type_id max_cost selected min_cost total_points type_name team_name status form current_fixture now_cost points_per_game transfers_in original_cost event_points next_fixture transfers_in_event selected_by team_id second_name ");
+            this.select = this.select.replace("**", " transfersout code eventtotal lastseasonpoints squadnumber transfersbalance eventcost indreamteam id firstname transfersoutevent maxcost eventexplain selected mincost totalpoints typename teamname status added form currentfixture pointspergame transfersin news originalcost eventpoints nextfixture transfersinevent selectedby teamid secondname name cost ");
 
             //Insert popular fields:
-            this.select = this.select.replace("*", " total_points type_name team_name transfers_out last_season_points transfers_balance event_cost web_name in_dreamteam status form now_cost event_points next_fixture selected_by ");
+            this.select = this.select.replace("*", " totalpoints typename teamname transfersout lastseasonpoints transfersbalance eventcost name indreamteam status form cost eventpoints nextfixture selectedby ");
 
             queryValue = this.initaliseField("define", queryValue);
         }

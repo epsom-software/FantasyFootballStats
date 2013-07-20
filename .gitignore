@@ -162,7 +162,7 @@ $RECYCLE.BIN/
 
 node_modules/*
 Data/*
-www/Node/Data/*
+utils/player/*
 www/Node/iisnode/*
 packages/*
 Ignore/*

@@ -7,9 +7,14 @@ var Postback;
         function Format() {
         }
         Format.toReadableEnglish = function (value) {
-            return value.split("_").map(function (word) {
-                return word.charAt(0).toUpperCase() + word.slice(1);
-            }).join("");
+            $(".Fields label").each(function () {
+                var fieldName = $(this).text();
+                if (value == fieldName.toLowerCase()) {
+                    return fieldName;
+                }
+            });
+
+            return value;
         };
 
         Format.toHtmlRow = function (values, dataElementName) {
@@ -48,12 +53,6 @@ var Postback;
     }
 
     function init() {
-        $(".Fields label").each(function () {
-            var field = $(this).text();
-            field = Format.toReadableEnglish(field);
-            $(this).text(field);
-        });
-
         $("form#statsForm").submit(function () {
             $.getJSON("Node/server.js", { code: $("#code").val() }, callback);
             return false;
@@ -108,18 +107,15 @@ var Postback;
             })();
 
             if (maxCost > 0) {
-                //For some reason the backend values are 10 times higher than the display values.
-                //Need to think about how we want to handle this.
-                maxCost *= 10;
-                appendClause("now_cost <= " + maxCost);
+                appendClause("cost <= " + maxCost);
             }
 
-            var teamFilter = QueryBuilder.filter($(".Teams"), "team_name");
+            var teamFilter = QueryBuilder.filter($(".Teams"), "TeamName");
             if (teamFilter) {
                 appendClause(teamFilter);
             }
 
-            var positionFilter = QueryBuilder.filter($(".Positions"), "type_name");
+            var positionFilter = QueryBuilder.filter($(".Positions"), "TypeName");
             if (positionFilter) {
                 appendClause(positionFilter);
             }
