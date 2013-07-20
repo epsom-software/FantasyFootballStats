@@ -45,10 +45,13 @@
         <label>Max cost:</label><input type="number" name="maxCost" max="20" min="0" step="0.1" />
     </fieldset>
 
-    <fieldset>
-        <legend>Code:</legend>
-        <textarea id="code" rows="10" cols="120">select *</textarea>
-    </fieldset>
+    @if (FantasyFootballStats.Models.DebugHelper.IsDebug)
+    {
+        <fieldset>
+            <legend>Code:</legend>
+            <textarea id="code" rows="10" cols="120">select *</textarea>
+        </fieldset>
+    }
 
     <div id="result"></div>
 
