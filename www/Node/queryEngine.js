@@ -105,14 +105,14 @@ var QueryEngine;
 
                     subquery = subquery.replace(wholeMatch, "");
 
-                    this.buildExpression(field, expression, /^[\w\s\-+*/'\(\)]+$/);
+                    this.buildExpression(field, expression, /^[\w\s\-+*/'\(\)\.]+$/);
                 }
             }
         };
 
         Runner.prototype.where = function (subquery) {
             if (subquery) {
-                this.buildExpression("where", subquery, /^[\w\s=\'\(\)+<>]+$/);
+                this.buildExpression("where", subquery, /^[\w\s=\'\(\)+<>\.]+$/);
             }
         };
 

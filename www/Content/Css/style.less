@@ -4,7 +4,6 @@
     border-color: darken(@color, 20%);
 }
 
-
 body {
     background:#dedede;
 }
@@ -15,7 +14,8 @@ input[type=radio], input[type=checkbox] {
 fieldset {
     border: none;
 }
-label {
+       
+.boxen label {
     border: 2px solid black;
     padding: 3px;
     opacity: 0.4;
@@ -23,13 +23,13 @@ label {
     margin-right:2px;
     line-height:2em;
 }
-label:hover {
+.boxen label:hover {
     border: 2px solid black;
     padding: 3px;
     background: #c8c8c8;
     opacity: 0.6;
 }
-label.on {
+.boxen label.on {
     .colors(white);
     opacity: 1;
 }
@@ -38,6 +38,9 @@ label.on {
 }
 .Teams label.on {
     .colors(#0094ff);
+}
+.Fields label.on {
+    .colors(#b200ff);
 }
 table {
     border-collapse: collapse;
