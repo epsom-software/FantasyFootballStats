@@ -1,11 +1,18 @@
 ///<reference path='Definitions\jquery.d.ts'/>
 var Postback;
 (function (Postback) {
+    var $ = jQuery;
+
     var Format = (function () {
         function Format() {
         }
         Format.toReadableEnglish = function (value) {
-            return value.charAt(0).toUpperCase() + value.slice(1);
+            $(".Fields label").each(function () {
+                var fieldName = $(this).text();
+                value = value.replace(fieldName.toLowerCase(), fieldName);
+            });
+
+            return value;
         };
 
         Format.toHtmlRow = function (values, dataElementName) {
@@ -43,12 +50,6 @@ var Postback;
     }
 
     function init() {
-        $(".Fields label").each(function () {
-            var field = $(this).text();
-            field = Format.toReadableEnglish(field);
-            $(this).text(field);
-        });
-
         $("form#statsForm").submit(function () {
             $.getJSON("Node/server.js", { code: $("#code").val() }, callback);
             return false;
@@ -103,9 +104,6 @@ var Postback;
             })();
 
             if (maxCost > 0) {
-                //For some reason the backend values are 10 times higher than the display values.
-                //Need to think about how we want to handle this.
-                maxCost *= 10;
                 appendClause("cost <= " + maxCost);
             }
 

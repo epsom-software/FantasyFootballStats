@@ -25,8 +25,8 @@ namespace FantasyFootballStats.Models
         }
 
         public static readonly IEnumerable<string> PopularFields = new string[] { 
-            "totalpoints", "typename", "teamname", "transfersout", "lastseasonpoints", "transfersbalance",
-            "eventcost", "webname", "indreamteam", "status", "form", "nowcost", "eventpoints", "nextfixture", "selectedby" 
+            "TotalPoints", "TypeName", "TeamName", "TransfersOut", "LastSeasonPoints", "TransfersBalance",
+            "Eventcost", "Name", "InDreamTeam", "Status", "Form", "Cost", "EventPoints", "NextFixture", "SelectedBy" 
         };
     }
 }
