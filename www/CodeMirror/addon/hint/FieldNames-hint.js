@@ -20,8 +20,6 @@
             filteredKeywords = keywords;
         }
 
-        console.log(filteredKeywords);
-
         return {
             list: filteredKeywords,
             from: CodeMirror.Pos(cur.line, token.start),

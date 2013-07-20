@@ -25,8 +25,6 @@
         } else {
             filteredKeywords = keywords;
         }
-        
-        console.log(filteredKeywords);
 
         return {
             list: filteredKeywords,
