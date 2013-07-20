@@ -5,9 +5,7 @@ var Postback;
         function Format() {
         }
         Format.toReadableEnglish = function (value) {
-            return value.split("_").map(function (word) {
-                return word.charAt(0).toUpperCase() + word.slice(1);
-            }).join(" ");
+            return value.charAt(0).toUpperCase() + value.slice(1);
         };
 
         Format.toHtmlRow = function (values, dataElementName) {
@@ -108,15 +106,15 @@ var Postback;
                 //For some reason the backend values are 10 times higher than the display values.
                 //Need to think about how we want to handle this.
                 maxCost *= 10;
-                appendClause("now_cost <= " + maxCost);
+                appendClause("cost <= " + maxCost);
             }
 
-            var teamFilter = QueryBuilder.filter($(".Teams"), "team_name");
+            var teamFilter = QueryBuilder.filter($(".Teams"), "TeamName");
             if (teamFilter) {
                 appendClause(teamFilter);
             }
 
-            var positionFilter = QueryBuilder.filter($(".Positions"), "type_name");
+            var positionFilter = QueryBuilder.filter($(".Positions"), "TypeName");
             if (positionFilter) {
                 appendClause(positionFilter);
             }

@@ -34,12 +34,13 @@ request(url).on("data", function(chunk) {
 
     json = JSON.parse(json);
     
-    //Delete attributes we dont care about:
+    //Delete attributes which are not relevant to statistics:
     delete json.photomobileurl;
     delete json.shirtimageurl;
     delete json.shirtmobileimageurl;
     delete json.newsupdated;
     delete json.newsadded;
+    delete json.newsreturn;
     delete json.elementtypeid;
     delete json.teamcode;
     
