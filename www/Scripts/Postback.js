@@ -7,7 +7,7 @@ var Postback;
         Format.toReadableEnglish = function (value) {
             return value.split("_").map(function (word) {
                 return word.charAt(0).toUpperCase() + word.slice(1);
-            }).join(" ");
+            }).join("");
         };
 
         Format.toHtmlRow = function (values, dataElementName) {

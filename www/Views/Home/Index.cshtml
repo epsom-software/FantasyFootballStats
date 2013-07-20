@@ -5,22 +5,25 @@
 
     <fieldset class="Positions boxen">
         <legend>Position:</legend>
-        @foreach(string position in FantasyFootballStats.Models.GameValues.Positions) {
+        @foreach (string position in FantasyFootballStats.Models.GameValues.Positions)
+        {
             <label for="@position">@position</label>
             @Html.RadioButton("Position", position, new { id = position })
         }
     </fieldset>
     <fieldset class="Teams boxen">
         <legend>Team:</legend>
-        @foreach(string team in FantasyFootballStats.Models.GameValues.Teams) {
+        @foreach (string team in FantasyFootballStats.Models.GameValues.Teams)
+        {
             <label for="@team">@team</label>
             <input type="checkbox" name="Team" id="@team" value="@team" checked="@Model.Team.Contains(team)" />
         }
     </fieldset>
-    
+
     <fieldset class="Fields boxen">
         <legend>Fields:</legend>
-        @foreach(string field in FantasyFootballStats.Models.GameValues.PopularFields) {
+        @foreach (string field in FantasyFootballStats.Models.GameValues.PopularFields)
+        {
             <label for="@field" data-field="@field">@field</label>
             <input type="checkbox" name="Field" id="@field" value="@field" />
         }
@@ -40,7 +43,7 @@
         <legend>Code:</legend>
         <textarea id="code" rows="10" cols="120">select *</textarea>
     </fieldset>
-    
+
     <div id="result"></div>
 
     <input type="submit" />
@@ -49,12 +52,15 @@
 
 
 
-    <script>
-      CodeMirror.commands.autocomplete = function(cm) {
+<script>
+    CodeMirror.commands.autocomplete = function (cm) {
         CodeMirror.showHint(cm, CodeMirror.hint.javascript);
-      }
-      var editor = CodeMirror.fromTextArea($("fieldset.Define textarea")[0], {
-        lineNumbers: true,
-        extraKeys: {"Ctrl-Space": "autocomplete"}
-      });
-    </script>
+    }
+    var editor = CodeMirror.fromTextArea($("fieldset.Define textarea")[0], {
+        onKeyEvent: function (e, s) {
+            if (s.type == "keyup") {
+                console.log(CodeMirror.showHint(e));
+            }
+        }
+    });
+</script>

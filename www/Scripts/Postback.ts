@@ -5,7 +5,7 @@ module Postback {
     export class Format {
 
         public static toReadableEnglish(value: string): string {
-            return value.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+            return value.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join("");
         }
 
         private static toHtmlRow(values: string[], dataElementName: string): string {
