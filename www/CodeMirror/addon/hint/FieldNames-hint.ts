@@ -5,8 +5,8 @@
     var CodeMirror = (<any>window).CodeMirror;
 
     var keywords = (
-        "TotalPoints TypeName TeamName TransfersOut Code EventTotal LastSeasonPoints TransfersBalance EventCost WebName InDreamteam " +
-        "TeamCode Id FirstName TransfersOutEvent ElementTypeId MaxCost Selected MinCost Status Form CurrentFixture NowCost PointsPerGame " +
+        "TotalPoints TypeName TeamName TransfersOut Code EventTotal LastSeasonPoints TransfersBalance EventCost Name InDreamteam " +
+        "TeamCode Id FirstName TransfersOutEvent ElementTypeId MaxCost Selected MinCost Status Form CurrentFixture Cost PointsPerGame " +
         "TransfersIn OriginalCost EventPoints NextFixture TransfersInEvent SelectedBy TeamId SecondName")
         .split(" ");
 
