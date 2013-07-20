@@ -49,18 +49,3 @@
     <input type="submit" />
 
 </form>
-
-
-
-<script>
-    CodeMirror.commands.autocomplete = function (cm) {
-        CodeMirror.showHint(cm, CodeMirror.hint.javascript);
-    }
-    var editor = CodeMirror.fromTextArea($("fieldset.Define textarea")[0], {
-        onKeyEvent: function (e, s) {
-            if (s.type == "keyup") {
-                console.log(CodeMirror.showHint(e));
-            }
-        }
-    });
-</script>

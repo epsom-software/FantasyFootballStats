@@ -1,6 +1,8 @@
-///<reference path='Definitions\jquery.d.ts'/>
+///<reference path='typings\jquery\jquery.d.ts'/>
 
 module Postback {
+
+    var $ = jQuery;
 
     export class Format {
 

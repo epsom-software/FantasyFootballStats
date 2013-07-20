@@ -1,6 +1,8 @@
-///<reference path='Definitions\jquery.d.ts'/>
+///<reference path='typings\jquery\jquery.d.ts'/>
 var Postback;
 (function (Postback) {
+    var $ = jQuery;
+
     var Format = (function () {
         function Format() {
         }

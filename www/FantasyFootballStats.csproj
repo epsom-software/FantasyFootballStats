@@ -165,7 +165,10 @@
       <DependentUpon>server.tests.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Inputs.ts" />
-    <Content Include="Scripts\Definitions\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\CodeEditor.ts" />
+    <Content Include="Scripts\CodeEditor.js">
+      <DependentUpon>CodeEditor.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Inputs.js">
       <DependentUpon>Inputs.ts</DependentUpon>
     </Content>
@@ -175,6 +178,7 @@
     </Content>
     <Content Include="Scripts\typings\chai\chai-assert.d.ts" />
     <Content Include="Scripts\typings\chai\chai.d.ts" />
+    <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="Scripts\typings\mocha\mocha.d.ts" />
     <Content Include="Scripts\typings\node\node-0.8.8.d.ts" />
     <Content Include="Scripts\typings\node\node.d.ts" />
