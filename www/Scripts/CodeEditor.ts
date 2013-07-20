@@ -8,7 +8,7 @@ module CodeEditor {
         var CodeMirror = (<any>window).CodeMirror;
 
         $("fieldset.Define textarea").each(function () {
-            CodeMirror.fromTextArea(this, {
+            var editor = CodeMirror.fromTextArea(this, {
                 onKeyEvent: function (e, s) {
 
                     if (s.type == "keyup") {
@@ -25,6 +25,8 @@ module CodeEditor {
                 },
                 lineWrapping: true
             });
+
+            $(this).data("editor", editor);
         });
     });
 }

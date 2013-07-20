@@ -6,7 +6,7 @@ var CodeEditor;
         var CodeMirror = (window).CodeMirror;
 
         $("fieldset.Define textarea").each(function () {
-            CodeMirror.fromTextArea(this, {
+            var editor = CodeMirror.fromTextArea(this, {
                 onKeyEvent: function (e, s) {
                     if (s.type == "keyup") {
                         var isLetter = s.keyCode >= 65 && s.keyCode <= 90;
@@ -18,6 +18,8 @@ var CodeEditor;
                 },
                 lineWrapping: true
             });
+
+            $(this).data("editor", editor);
         });
     });
 })(CodeEditor || (CodeEditor = {}));

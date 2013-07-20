@@ -3,6 +3,14 @@ var Postback;
 (function (Postback) {
     var $ = jQuery;
 
+    var NameDefinitionPair = (function () {
+        function NameDefinitionPair(name, definition) {
+            this.name = name;
+            this.definition = definition;
+        }
+        return NameDefinitionPair;
+    })();
+
     var Format = (function () {
         function Format() {
         }
@@ -67,7 +75,7 @@ var Postback;
         function QueryBuilder() {
         }
         QueryBuilder.build = function () {
-            var query = QueryBuilder.select() + QueryBuilder.where();
+            var query = QueryBuilder.define() + QueryBuilder.select() + QueryBuilder.where();
             $("#code").val(query);
             return query;
         };
@@ -79,10 +87,15 @@ var Postback;
                 select += $(this).data("field") + " ";
             });
 
+            var definitions = QueryBuilder.definitions();
+            definitions.forEach(function (pair) {
+                return select += pair.name + " ";
+            });
+
             if (select == "") {
-                select = " select * ";
+                select = "\r\nselect * ";
             } else {
-                select = " select " + select;
+                select = "\r\nselect " + select;
             }
 
             return select;
@@ -112,18 +125,18 @@ var Postback;
                 appendClause("cost <= " + maxCost);
             }
 
-            var teamFilter = QueryBuilder.filter($(".Teams"), "TeamName");
+            var teamFilter = QueryBuilder.filter($("fieldset.Teams"), "TeamName");
             if (teamFilter) {
                 appendClause(teamFilter);
             }
 
-            var positionFilter = QueryBuilder.filter($(".Positions"), "TypeName");
+            var positionFilter = QueryBuilder.filter($("fieldset.Positions"), "TypeName");
             if (positionFilter) {
                 appendClause(positionFilter);
             }
 
             if (where != "") {
-                where = " where " + where;
+                where = "\r\nwhere " + where;
             }
 
             return where;
@@ -146,6 +159,38 @@ var Postback;
             } else {
                 return null;
             }
+        };
+
+        QueryBuilder.define = function () {
+            var definitions = QueryBuilder.definitions();
+
+            var define = definitions.map(function (pair) {
+                return "\r\ndefine (" + pair.definition + ") as " + pair.name;
+            }).join("");
+
+            return define;
+        };
+
+        QueryBuilder.definitions = function () {
+            var $fieldset = $("fieldset.Define");
+            var $names = $fieldset.find("input");
+            var $definitions = $fieldset.find("textarea.definition");
+
+            var result = [];
+
+            $names.each(function (index) {
+                var name = $($names[index]).val();
+                name = name.replace(/\W/g, "_");
+
+                var editor = $($definitions[index]).data("editor");
+                var definition = editor.getValue();
+
+                if (name.length > 0 && definition.length > 0) {
+                    result.push(new NameDefinitionPair(name, definition));
+                }
+            });
+
+            return result;
         };
         return QueryBuilder;
     })();

@@ -4,14 +4,18 @@ module Postback {
 
     var $ = jQuery;
 
+    class NameDefinitionPair {
+        constructor(public name: string, public definition: string) { }
+    }
+
     class Format {
 
         private static toReadableEnglish(value: string): string {
-            
+
             $(".Fields label").each(function () {
                 var fieldName: string = $(this).text();
                 if (value == fieldName.toLowerCase()) {
-                    
+
                     value = fieldName;
 
                     //Break the loop:
@@ -71,7 +75,7 @@ module Postback {
 
     class QueryBuilder {
         public static build(): string {
-            var query = QueryBuilder.select() + QueryBuilder.where();
+            var query = QueryBuilder.define() + QueryBuilder.select() + QueryBuilder.where();
             $("#code").val(query);
             return query;
         }
@@ -82,11 +86,14 @@ module Postback {
             var v = $(".Fields label.on").each(function () {
                 select += $(this).data("field") + " ";
             });
+            
+            var definitions: NameDefinitionPair[] = QueryBuilder.definitions();
+            definitions.forEach(pair => select += pair.name + " ");
 
             if (select == "") {
-                select = " select * ";
+                select = "\r\nselect * ";
             } else {
-                select = " select " + select;
+                select = "\r\nselect " + select;
             }
 
             return select;
@@ -116,26 +123,26 @@ module Postback {
             if (maxCost > 0) {
                 appendClause("cost <= " + maxCost);
             }
-            
-            var teamFilter = QueryBuilder.filter($(".Teams"), "TeamName");
+
+            var teamFilter = QueryBuilder.filter($("fieldset.Teams"), "TeamName");
             if (teamFilter) {
                 appendClause(teamFilter);
             }
 
-            var positionFilter = QueryBuilder.filter($(".Positions"), "TypeName");
+            var positionFilter = QueryBuilder.filter($("fieldset.Positions"), "TypeName");
             if (positionFilter) {
                 appendClause(positionFilter);
             }
 
             if (where != "") {
-                where = " where " + where;
+                where = "\r\nwhere " + where;
             }
 
             return where;
         }
 
         private static filter($fieldset: JQuery, field: string): string {
-            
+
             var values: string[] = [];
 
             var totalNumberOfLabels = $fieldset.find("label").length;
@@ -151,6 +158,41 @@ module Postback {
             } else {
                 return null;
             }
+        }
+
+        private static define(): string {
+
+            var definitions: NameDefinitionPair[] = QueryBuilder.definitions();
+            
+            var define = definitions
+                .map(pair => "\r\ndefine (" + pair.definition + ") as " + pair.name)
+                .join("");
+
+            return define;
+        }
+
+        private static definitions(): NameDefinitionPair[] {
+
+            var $fieldset = $("fieldset.Define");
+            var $names = $fieldset.find("input");
+            var $definitions = $fieldset.find("textarea.definition");
+
+            var result: NameDefinitionPair[] = [];
+
+            $names.each(function (index) {
+
+                var name: string = $($names[index]).val();
+                name = name.replace(/\W/g, "_");
+
+                var editor = $($definitions[index]).data("editor");
+                var definition: string = editor.getValue();
+
+                if (name.length > 0 && definition.length > 0) {
+                    result.push(new NameDefinitionPair(name, definition));
+                }
+            });
+
+            return result;
         }
     }
 
