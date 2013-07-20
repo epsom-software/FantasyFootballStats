@@ -3,7 +3,6 @@
 module CodeEditor{
 
     var $ = jQuery;
-
     var CodeMirror = (<any>window).CodeMirror;
 
     CodeMirror.commands.autocomplete = function (cm) {

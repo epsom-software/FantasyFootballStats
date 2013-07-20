@@ -2,7 +2,6 @@
 var CodeEditor;
 (function (CodeEditor) {
     var $ = jQuery;
-
     var CodeMirror = (window).CodeMirror;
 
     CodeMirror.commands.autocomplete = function (cm) {
