@@ -7,16 +7,14 @@
         <legend>Position:</legend>
         @foreach (string position in FantasyFootballStats.Models.GameValues.Positions)
         {
-            <label for="@position">@position</label>
-            @Html.RadioButton("Position", position, new { id = position })
+            <label>@position</label>
         }
     </fieldset>
     <fieldset class="Teams boxen">
         <legend>Team:</legend>
         @foreach (string team in FantasyFootballStats.Models.GameValues.Teams)
         {
-            <label for="@team">@team</label>
-            <input type="checkbox" name="Team" id="@team" value="@team" checked="@Model.Team.Contains(team)" />
+            <label>@team</label>
         }
     </fieldset>
 
@@ -24,8 +22,7 @@
         <legend>Fields:</legend>
         @foreach (string field in FantasyFootballStats.Models.GameValues.PopularFields)
         {
-            <label for="@field" data-field="@field">@field</label>
-            <input type="checkbox" name="Field" id="@field" value="@field" />
+            <label>@field</label>
         }
     </fieldset>
 
