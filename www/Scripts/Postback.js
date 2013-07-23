@@ -84,7 +84,7 @@ var Postback;
             var select = "";
 
             var v = $(".Fields label.on").each(function () {
-                select += $(this).data("field") + " ";
+                select += $(this).text() + " ";
             });
 
             var definitions = QueryBuilder.definitions();
