@@ -1,0 +1,16 @@
+﻿@model FantasyFootballStats.Models.LoginModel
+
+<h2>This site is for personal use.</h2>
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Sign in:</legend>
+
+        @Html.LabelFor(m => m.Password)
+        @Html.TextBoxFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+
+        <input type="submit" value="Sign in" />
+    </fieldset>
+}
