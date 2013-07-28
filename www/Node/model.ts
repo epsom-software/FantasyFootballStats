@@ -11,7 +11,6 @@ module model {
         eventtotal: number;
         firstname: string;
         fixturehistory: any;
-        fixtures: any;
         form: number;
         id: number;
         indreamteam: bool;
