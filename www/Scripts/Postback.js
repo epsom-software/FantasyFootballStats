@@ -66,9 +66,7 @@ var Postback;
         $("form#statsForm").submit(function () {
             $.getJSON("Node/server.js", { code: $("#code").val() }, callback);
             return false;
-        });
-
-        $("input").last().click().click(QueryBuilder.build);
+        }).find("input").last().click().click(QueryBuilder.build);
     }
 
     var QueryBuilder = (function () {

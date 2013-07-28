@@ -68,9 +68,7 @@ module Postback {
                 callback
                 );
             return false;
-        });
-
-        $("input").last().click().click(QueryBuilder.build);
+        }).find("input").last().click().click(QueryBuilder.build);
     }
 
     class QueryBuilder {
