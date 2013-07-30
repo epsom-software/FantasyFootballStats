@@ -5,24 +5,16 @@ namespace FantasyFootballStats.Models
 {
     public static class GameValues
     {
-        public enum Position { Goalkeeper, Defender, Midfielder, Forward };
-        public enum Team { Arsenal, AstonVilla, Chelsea, Everton, Fulham, Liverpool, ManCity, ManUtd, Newcastle, Norwich, QPR, Reading, Southampton, StokeCity, Sunderland, Swansea, Tottenham, WestBrom, WestHam, Wigan };
+        public static readonly IEnumerable<string> Positions = new string[] {
+            "Goalkeeper", "Defender", "Midfielder", "Forward"
+        };
 
-        public static IEnumerable<string> Positions
-        {
-            get
-            {
-                return Enum.GetNames(typeof(Position));
-            }
-        }
-
-        public static IEnumerable<string> Teams
-        {
-            get
-            {
-                return Enum.GetNames(typeof(Team));
-            }
-        }
+        public static readonly IEnumerable<string> Teams = new string[] {
+            "Arsenal", "Aston Villa", "Cardiff City", "Chelsea", "Crystal Palace", 
+            "Everton", "Fulham", "Hull City", "Liverpool", "Man City", 
+            "Man Utd", "Newcastle", "Norwich", "Southampton", "Stoke City", 
+            "Sunderland", "Swansea", "Tottenham", "West Brom", "West Ham"
+        };
 
         public static readonly IEnumerable<string> PopularFields = new string[] { 
             "TotalPoints", "TypeName", "TeamName", "TransfersOut", "LastSeasonPoints", "TransfersBalance",
