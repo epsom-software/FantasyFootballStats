@@ -9,7 +9,8 @@
 
         @Html.LabelFor(m => m.Password)
         @Html.TextBoxFor(m => m.Password)
-        @Html.ValidationMessageFor(m => m.Password)
+
+        @Html.ValidationSummary()
 
         <input type="submit" value="Sign in" />
     </fieldset>
