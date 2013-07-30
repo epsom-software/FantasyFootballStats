@@ -47,7 +47,7 @@ var Postback;
                 return row;
             });
 
-            var table = "<table>" + headingRow + rows.join("") + "</table>";
+            var table = "<table><thead>" + headingRow + "</thead><tbody>" + rows.join("") + "</tbody></table>";
             return table;
         };
         return Format;
@@ -56,7 +56,8 @@ var Postback;
     function callback(json) {
         if (json && json.length > 0) {
             var table = Format.toHtmlTable(json);
-            $("#result").html(table);
+            var $table = $("#result").html(table).find("table");
+            $table.tablesorter();
         } else {
             $("#result").html("No results");
         }

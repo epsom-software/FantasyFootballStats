@@ -44,7 +44,7 @@ module Postback {
                 return row
             })
 
-            var table: string = "<table>" + headingRow + rows.join("") + "</table>";
+            var table: string = "<table><thead>" + headingRow + "</thead><tbody>" + rows.join("") + "</tbody></table>";
             return table;
         }
     }
@@ -53,7 +53,8 @@ module Postback {
 
         if (json && json.length > 0) {
             var table: string = Format.toHtmlTable(json);
-            $("#result").html(table);
+            var $table: any = $("#result").html(table).find("table");
+            $table.tablesorter();
         } else {
             $("#result").html("No results");
         }
