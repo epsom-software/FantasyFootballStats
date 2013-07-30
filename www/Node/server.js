@@ -4,10 +4,21 @@ var server;
 (function (server) {
     var http = require('http');
     var url = require('url');
+    var fs = require('fs');
     var port = process.env.PORT || 1337;
+
+    function loadPlayers() {
+        var repositoryDirectory = "../../Data/Player2013/";
+        var files = fs.readdirSync(repositoryDirectory);
+        var json = files.map(function (f) {
+            return require(repositoryDirectory + f);
+        });
+        return json;
+    }
+
     var QueryEngine = require("./queryEngine.js");
 
-    QueryEngine.Runner.players = require("./tests/playerRepository.js").players;
+    QueryEngine.Runner.players = loadPlayers();
 
     http.createServer(function (req, res) {
         var url_parts = url.parse(req.url, true);

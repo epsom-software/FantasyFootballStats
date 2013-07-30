@@ -1,6 +1,6 @@
 
 //This file will download the player data from the fantasy site
-//and save it to your file system in the ./www/Node/Data/Player/ directory.
+//and save it to your file system in the ./Data/Player2013/ directory.
 
 //To call this command from node, navigate to ./
 //npm install request
@@ -23,7 +23,7 @@ var fs = require('fs');
 var playerId = process.argv[2];
 
 var url = 'http://fantasy.premierleague.com/web/api/elements/' + playerId + '/';
-var file = './utils/Player/' + playerId + '.json';
+var file = './Data/Player2013/' + playerId + '.json';
 
 var json = "";
 request(url).on("data", function(chunk) {
@@ -43,6 +43,7 @@ request(url).on("data", function(chunk) {
     delete json.newsreturn;
     delete json.elementtypeid;
     delete json.teamcode;
+    delete json.fixtures;
     
     renameProperty(json, "webname", "name");
     renameProperty(json, "nowcost", "cost");
@@ -50,7 +51,6 @@ request(url).on("data", function(chunk) {
     
     //Move the larger properies to the bottom of the output:
     renameProperty(json, "seasonhistory", "seasonhistory");
-    renameProperty(json, "fixtures", "fixtures");
     
     scaleCost(json, "eventcost")
     scaleCost(json, "maxcost")
@@ -62,7 +62,7 @@ request(url).on("data", function(chunk) {
     json = json.replace('"seasonhistory"', '\r\n\r\n"seasonhistory"');
     json = json.replace('"fixtures"', '\r\n\r\n"fixtures"');
     
-    console.log(json);
+    //console.log(json);
     
     fs.writeFile(file, json);
 });
