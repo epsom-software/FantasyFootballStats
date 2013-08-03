@@ -19,7 +19,7 @@ namespace FantasyFootballStats.Models
         {
             if (IsValidLogin())
             {
-                FormsAuthentication.SetAuthCookie("registereduser", false);
+                FormsAuthentication.SetAuthCookie("registereduser", true);
                 return true;
             }
             else
