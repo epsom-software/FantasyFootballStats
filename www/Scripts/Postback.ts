@@ -79,16 +79,24 @@ module Postback {
         }
     }
 
+    function submit() {
+        var query = QueryBuilder.build();
+        $.getJSON(
+            "Node/server.js",
+            { code: query },
+            callback
+        );
+        return false;
+    }
+
     function init() {
 
-        $("form#statsForm").submit(function () {
-            $.getJSON(
-                "Node/server.js",
-                { code: $("#code").val() },
-                callback
-                );
-            return false;
-        }).find("input").last().click().click(QueryBuilder.build);
+        ["TotalPoints", "Cost", "TypeName", "TeamName", "Form", "EventPoints", "NextFixture", "News"].forEach(
+            f => $(".Fields label:contains('" + f + "')").addClass("on")
+        );
+        
+        $("form#statsForm").submit(submit);
+        setTimeout(submit, 1);
     }
 
     class QueryBuilder {

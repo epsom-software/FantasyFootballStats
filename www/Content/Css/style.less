@@ -60,11 +60,16 @@ td, th {
     border: 1px solid black;
     color: white;
     padding: 1px 3px;
+    max-width:180px;
+}
+
+th {
+    padding: 8px 3px;
 }
 
 @tableColor: #444;
 
-tr {
+th, tr {
     background: darken(@tableColor, 5%);
 }
 
