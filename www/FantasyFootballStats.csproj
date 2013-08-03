@@ -175,6 +175,7 @@
     </Content>
     <TypeScriptCompile Include="Scripts\Postback.ts" />
     <Content Include="Scripts\jquery.tablesorter.min.js" />
+    <Content Include="Scripts\modernizr.custom.57932.js" />
     <Content Include="Scripts\Postback.js">
       <DependentUpon>Postback.ts</DependentUpon>
     </Content>

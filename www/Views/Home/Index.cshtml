@@ -1,5 +1,7 @@
 ﻿@model FantasyFootballStats.Models.PlayerFilter
-
+@{
+    const string nonBreakingSpace = "\u00A0";
+}
 
 <form id="statsForm">
 
@@ -14,7 +16,7 @@
         <legend>Team:</legend>
         @foreach (string team in FantasyFootballStats.Models.GameValues.Teams)
         {
-            <label>@team</label>
+            <label>@team.Replace(" ", nonBreakingSpace)</label>
         }
     </fieldset>
 
