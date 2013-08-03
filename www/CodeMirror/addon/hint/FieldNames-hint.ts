@@ -5,9 +5,9 @@
     var CodeMirror = (<any>window).CodeMirror;
 
     var keywords = (
-        "TotalPoints TypeName TeamName TransfersOut Code EventTotal LastSeasonPoints TransfersBalance EventCost Name InDreamteam " +
-        "TeamCode Id FirstName TransfersOutEvent ElementTypeId MaxCost Selected MinCost Status Form CurrentFixture Cost PointsPerGame " +
-        "TransfersIn OriginalCost EventPoints NextFixture TransfersInEvent SelectedBy TeamId SecondName")
+        "Cost CurrentFixture EventCost EventPoints EventTotal FirstName Form InDreamteam LastSeasonPoints " +
+        "MaxCost MinCost Name NextFixture OriginalCost PointsPerGame SecondName Selected SelectedBy Status " +
+        "TeamName TotalPoints TransfersBalance TransfersIn TransfersInEvent TransfersOut TransfersOutEvent TypeName")
         .split(" ");
 
     function hint(editor) {

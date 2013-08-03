@@ -12,18 +12,37 @@ module Postback {
 
         private static toReadableEnglish(value: string): string {
 
-            $(".Fields label").each(function () {
-                var fieldName: string = $(this).text();
+            var readableEnglish;
+
+            function matchField(fieldName: string): bool {
                 if (value == fieldName.toLowerCase()) {
-
-                    value = fieldName;
-
-                    //Break the loop:
+                    readableEnglish = fieldName;
                     return false;
                 }
+                return true;
+            }
+
+            $(".Fields label").each(function () {
+                return matchField($(this).text());
             });
 
-            return value;
+            if (readableEnglish === undefined) {
+                $(".Define input").each(function () {
+                    return matchField($(this).val());
+                });
+            }
+            
+            if (readableEnglish === undefined) {
+                if (value == "name") {
+                    readableEnglish = "Name";
+                }
+            }
+            
+            if (readableEnglish === undefined) {
+                readableEnglish = value;
+            }
+
+            return readableEnglish;
         }
 
         private static toHtmlRow(values: string[], dataElementName: string): string {
@@ -80,20 +99,19 @@ module Postback {
         }
 
         private static select(): string {
-            var select = "";
+            var select = "\r\nselect Name ";
 
-            var v = $(".Fields label.on").each(function () {
+            var $selectedFields = $(".Fields label.on");
+            if ($selectedFields.length == 0) {
+                $selectedFields = $(".Fields label");
+            }
+
+            var v = $selectedFields.each(function () {
                 select += $(this).text() + " ";
             });
             
             var definitions: NameDefinitionPair[] = QueryBuilder.definitions();
             definitions.forEach(pair => select += pair.name + " ");
-
-            if (select == "") {
-                select = "\r\nselect * ";
-            } else {
-                select = "\r\nselect " + select;
-            }
 
             return select;
         }

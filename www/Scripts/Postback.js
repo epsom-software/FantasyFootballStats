@@ -15,17 +15,37 @@ var Postback;
         function Format() {
         }
         Format.toReadableEnglish = function (value) {
-            $(".Fields label").each(function () {
-                var fieldName = $(this).text();
-                if (value == fieldName.toLowerCase()) {
-                    value = fieldName;
+            var readableEnglish;
 
-                    //Break the loop:
+            function matchField(fieldName) {
+                if (value == fieldName.toLowerCase()) {
+                    readableEnglish = fieldName;
                     return false;
                 }
+                return true;
+            }
+
+            $(".Fields label").each(function () {
+                return matchField($(this).text());
             });
 
-            return value;
+            if (readableEnglish === undefined) {
+                $(".Define input").each(function () {
+                    return matchField($(this).val());
+                });
+            }
+
+            if (readableEnglish === undefined) {
+                if (value == "name") {
+                    readableEnglish = "Name";
+                }
+            }
+
+            if (readableEnglish === undefined) {
+                readableEnglish = value;
+            }
+
+            return readableEnglish;
         };
 
         Format.toHtmlRow = function (values, dataElementName) {
@@ -80,9 +100,14 @@ var Postback;
         };
 
         QueryBuilder.select = function () {
-            var select = "";
+            var select = "\r\nselect Name ";
 
-            var v = $(".Fields label.on").each(function () {
+            var $selectedFields = $(".Fields label.on");
+            if ($selectedFields.length == 0) {
+                $selectedFields = $(".Fields label");
+            }
+
+            var v = $selectedFields.each(function () {
                 select += $(this).text() + " ";
             });
 
@@ -90,12 +115,6 @@ var Postback;
             definitions.forEach(function (pair) {
                 return select += pair.name + " ";
             });
-
-            if (select == "") {
-                select = "\r\nselect * ";
-            } else {
-                select = "\r\nselect " + select;
-            }
 
             return select;
         };
