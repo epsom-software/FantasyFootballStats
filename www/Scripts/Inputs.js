@@ -5,9 +5,6 @@
             $(this).toggleClass("on");
         }).dblclick(function () {
             $(this).addClass("on").siblings("label").removeClass("on");
-
-            //Remove the "copy and paste" style selected text from the label:
-            $("#code").focus();
         });
 
         ///When a legend is clicked, turn on it's labels, unless they were all already on.

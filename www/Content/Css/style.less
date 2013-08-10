@@ -4,6 +4,14 @@
     border-color: darken(@color, 20%);
 }
 
+.no_selection() {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 body {
     background: #dedede;
 }
@@ -16,6 +24,10 @@ fieldset {
     margin: 0;
     padding:5px 0 10px 0;
 }
+legend {
+    .no_selection();
+    text-decoration:underline;
+}
 input[type=submit],
 .boxen label {
     border: 2px solid black;
@@ -24,6 +36,7 @@ input[type=submit],
     .colors(#c8c8c8);
     margin-right: 6px;
     line-height: 2.3em;
+    .no_selection();
 }
 
 input[type=submit]:hover,
