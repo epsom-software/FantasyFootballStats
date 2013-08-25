@@ -18,7 +18,7 @@ var fs = require('fs');
 exports.download = function(playerId) {
 
     var url = 'http://fantasy.premierleague.com/web/api/elements/' + playerId + '/';
-    var file = './Data/Player2013/' + playerId + '.json';
+    var file = __dirname + '/../Data/Player2013/' + playerId + '.json';
 
     var json = "";
     request(url).on("data", function(chunk) {

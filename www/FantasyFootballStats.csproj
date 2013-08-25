@@ -139,6 +139,10 @@
     <Content Include="CodeMirror\mode\javascript\index.html" />
     <Content Include="CodeMirror\mode\javascript\javascript.js" />
     <Content Include="Global.asax" />
+    <TypeScriptCompile Include="Node\download.ts" />
+    <Content Include="Node\download.js">
+      <DependentUpon>download.ts</DependentUpon>
+    </Content>
     <Content Include="Robots.txt" />
     <TypeScriptCompile Include="Node\server.ts" />
     <Content Include="Node\allTypings.d.ts" />
