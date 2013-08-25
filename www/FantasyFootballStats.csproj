@@ -143,6 +143,7 @@
     <Content Include="Node\download.js">
       <DependentUpon>download.ts</DependentUpon>
     </Content>
+    <Content Include="Node\DownloadPlayer.js" />
     <Content Include="Robots.txt" />
     <TypeScriptCompile Include="Node\server.ts" />
     <Content Include="Node\allTypings.d.ts" />

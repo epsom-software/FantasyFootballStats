@@ -1,4 +1,4 @@
-
+﻿
 //This file will download the player data from the fantasy site
 //and save it to your file system in the ./Data/Player2013/ directory.
 
@@ -15,20 +15,20 @@ function scaleCost(object, property) {
 var request = require('request');
 var fs = require('fs');
 
-exports.download = function(playerId) {
+exports.download = function (playerId) {
 
     var url = 'http://fantasy.premierleague.com/web/api/elements/' + playerId + '/';
-    var file = __dirname + '/../Data/Player2013/' + playerId + '.json';
+    var file = __dirname + '/../../Data/Player2013/' + playerId + '.json';
 
     var json = "";
-    request(url).on("data", function(chunk) {
+    request(url).on("data", function (chunk) {
         chunk = chunk.toString();
         chunk = chunk.replace(/_/g, "");
         json += chunk;
-    }).on("end", function() {
+    }).on("end", function () {
 
         json = JSON.parse(json);
-        
+
         //Delete attributes which are not relevant to statistics:
         delete json.photomobileurl;
         delete json.shirtimageurl;
@@ -39,26 +39,26 @@ exports.download = function(playerId) {
         delete json.elementtypeid;
         delete json.teamcode;
         delete json.fixtures;
-        
+
         renameProperty(json, "webname", "name");
         renameProperty(json, "nowcost", "cost");
-        
-        
+
+
         //Move the larger properies to the bottom of the output:
         renameProperty(json, "seasonhistory", "seasonhistory");
-        
+
         scaleCost(json, "eventcost")
         scaleCost(json, "maxcost")
         scaleCost(json, "mincost")
         scaleCost(json, "cost")
         scaleCost(json, "originalcost")
-        
+
         json = JSON.stringify(json, undefined, 2);
         json = json.replace('"seasonhistory"', '\r\n\r\n"seasonhistory"');
         json = json.replace('"fixtures"', '\r\n\r\n"fixtures"');
-        
+
         //console.log(json);
-        
+
         fs.writeFile(file, json);
     });
 };

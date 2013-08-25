@@ -4,7 +4,7 @@ var download;
     var http = require('http');
     var url = require('url');
     var fs = require('fs');
-    var downloadPlayer = require("../../utils/DownloadPlayer.js");
+    var downloadPlayer = require("./DownloadPlayer.js");
     var port = process.env.PORT || 1337;
     var repositoryDirectory = "../../Data/Player2013/";
 
